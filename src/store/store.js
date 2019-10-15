@@ -4,53 +4,56 @@ import Mock from 'mockjs'
 Vue.use(Vuex)
 var HotList = []
 for (var i = 0; i < 10; i++) {
-  HotList.push(Mock.mock({
-        'id':Mock.Random.guid(),
+    HotList.push(Mock.mock({
+        'id': Mock.Random.guid(),
         'name': Mock.Random.ctitle(4),
-       'img':Mock.Random.dataImage('90x122'),
+        'img': Mock.Random.dataImage('90x122'),
     }))
 }
 var futureList = []
 for (var i = 0; i < 10; i++) {
-  futureList.push(Mock.mock({
-        'id':Mock.Random.guid(),
+    futureList.push(Mock.mock({
+        'id': Mock.Random.guid(),
         'name': Mock.Random.ctitle(4),
-       'img':Mock.Random.dataImage('120x162'),
-       'date': `12月${i + 2}日`,
-       
+        'img': Mock.Random.dataImage('120x162'),
+        'date': `12月${i + 2}日`,
+
     }))
 }
-var  heraldList = []
+var heraldList = []
 for (var i = 0; i < 5; i++) {
-  heraldList.push(Mock.mock({
-        'id':Mock.Random.guid(),
-       'img':Mock.Random.dataImage('295x160'),
-       'text': Mock.Random.ctitle(30),
+    heraldList.push(Mock.mock({
+        'id': Mock.Random.guid(),
+        'img': Mock.Random.dataImage('295x160'),
+        'text': Mock.Random.ctitle(30),
     }))
 }
 
 var cinemaList = []
 for (var i = 0; i < 6; i++) {
-  cinemaList.push(Mock.mock({
-        'id':Mock.Random.guid(),
-       'name': Mock.Random.ctitle(5),
-       'position': Mock.Random.ctitle(10),
-       'price': '19.9',
+    cinemaList.push(Mock.mock({
+        'id': Mock.Random.guid(),
+        'name': Mock.Random.ctitle(5),
+        'position': Mock.Random.ctitle(10),
+        'price': '19.9',
     }))
 }
 
-
+import movielist from "./modules/movielist.js"
 export default new Vuex.Store({
-  state: {
-    hotList:HotList,
-    futureList:futureList,
-    heraldList:heraldList,
-    cinemaList:cinemaList
-  },
-  mutations: {
+    state: {
+        hotList: HotList,
+        futureList: futureList,
+        heraldList: heraldList,
+        cinemaList: cinemaList
+    },
+    mutations: {
 
-  },
-  actions: {
+    },
+    actions: {
 
-  }
+    },
+    modules: {
+        hotmovie: movielist
+    }
 })
