@@ -1,0 +1,44 @@
+<template>
+  <div id="app">
+    <router-view />
+    <div class="nav">
+  <tabbar></tabbar>
+    </div>
+  
+  </div>
+</template>
+<script>
+import tabbar from '@/components/tabbar.vue'
+import '@/assets/css/common/reset.css'
+export default {
+  data() {
+    return {
+
+    };
+  },
+  components: {
+    tabbar:tabbar
+  }
+};
+
+</script>
+<style lang="scss">
+html,
+body {
+  background: #23262d;
+  width: 100%;
+  height: auto;
+}
+#app {
+  width: 100%;
+  overflow: hidden;
+}
+a {
+   -webkit-tap-highlight-color:rgba(0,0,0,0);
+   text-decoration: none;
+}
+.nav {
+  height: 70px;
+}
+
+</style>
