@@ -30,8 +30,8 @@ export default {
     return {
       imgs: {
      down: require("@/assets/movie-imgs/首页_slices/下 箭头.png"),
-        search: require("@/assets/movie-imgs/首页_slices/搜索.png"),
-        // position: require("@/assets/movie-imgs/影院_slices/定位.png"),
+        // search: require("@/assets/movie-imgs/首页_slices/搜索.png"),
+
       }
     };
   }
