@@ -85,5 +85,9 @@ export default {
     box-shadow: 0px 0px 2px 2px rgba(242, 101, 129, 0.11);
     border-radius: 50%;
   }
+  .ticket.router-link-active::after {
+    width: 0;
+    height: 0;
+  }
 }
 </style>
