@@ -5,7 +5,7 @@
       <router-link class="router-link movie" to="/movie"></router-link>
       <router-link class="router-link ticket" to="/ticket"></router-link>
       <router-link class="router-link cinema" to="/cinema"></router-link>
-      <router-link class="router-link main" to="/main"></router-link>
+      <router-link class="router-link my" to="/my"></router-link>
     </div>
   </div>
 </template>
@@ -62,7 +62,7 @@ export default {
         background-image: url("../assets/movie-imgs/图标/编组 81.png");
       }
     }
-    &.main {
+    &.my {
       background-image: url("../assets/movie-imgs/图标/编组 3.png");
       &.router-link-active {
         background-image: url("../assets/movie-imgs/图标/编组 31.png");
