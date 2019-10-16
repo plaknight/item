@@ -1,62 +1,70 @@
 <template>
   <div class="home">
-    <!-- 头部开始 -->
-    <div class="header">
-      <div class="header-c">
-        <div class="adress">
-          郑州
-          <img :src="imgs.down" alt />
-        </div>
-        <div class="input">
-          <img :src="imgs.search" alt />
-          <input type="text" placeholder="搜影片、影院、影人" />
-        </div>
-        <div class="clock">
-          <img :src="imgs.clock" alt />
-        </div>
-      </div>
-    </div>
-    <!-- 轮播开始 -->
-    <div class="swiper-container">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide" v-for="(item,index) in imgs.swiperImg" :key="index">
-          <img :src="item" alt />
+    <router-view></router-view>
+    <div class="betterScroll" v-show="$route.meta.isShow">
+      <!-- betterScroll 插件 -->
+      <!-- 头部开始 -->
+      <div class="header">
+        <div class="header-c">
+          <div class="adress" @click="jumpCity">
+            {{ address }}
+            <img :src="imgs.down" alt />
+          </div>
+          <div class="input">
+            <img :src="imgs.search" alt />
+            <input type="text" placeholder="搜影片、影院、影人" />
+          </div>
+          <div class="clock">
+            <img :src="imgs.clock" alt />
+          </div>
         </div>
       </div>
-    </div>
-    <div class="swiper-pagination"></div>
-    <titleP msg="热映影片" msg2="全部"></titleP>
-    <!-- 热映电影 -->
+      <!-- 轮播开始 -->
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <div
+            class="swiper-slide"
+            v-for="(item, index) in imgs.swiperImg"
+            :key="index"
+          >
+            <img :src="item" alt />
+          </div>
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+      <titleP msg="热映影片" msg2="全部"></titleP>
+      <!-- 热映电影 -->
       <div class="swiper-container-hots">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="(item) in hotList" :key="item.id">
+          <div class="swiper-slide" v-for="item in hotList" :key="item.id">
             <img :src="item.img" alt />
             <p>{{ item.name }}</p>
             <div class="btnBuy">购票</div>
           </div>
         </div>
       </div>
-    <!-- 即将上映 -->
-    <titleP msg="即将上映" msg2="全部"></titleP>
+      <!-- 即将上映 -->
+      <titleP msg="即将上映" msg2="全部"></titleP>
       <div class="swiper-container-future">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="(item) in futureList" :key="item.id">
+          <div class="swiper-slide" v-for="item in futureList" :key="item.id">
             <img :src="item.img" alt />
             <p>{{ item.name }}</p>
             <div class="time">{{ item.time }}</div>
           </div>
         </div>
       </div>
-    <!-- 预告 -->
-     <titleP msg="精选预告" msg2="更多"></titleP>
+      <!-- 预告 -->
+      <titleP msg="精选预告" msg2="更多"></titleP>
       <div class="swiper-container-herald">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="(item) in heraldList" :key="item.id">
+          <div class="swiper-slide" v-for="item in heraldList" :key="item.id">
             <img :src="item.img" alt />
             <p>{{ item.text }}</p>
           </div>
         </div>
       </div>
+    </div>
   </div>
 </template>
 <script>
@@ -67,25 +75,80 @@ import Swiper from "swiper";
 import "swiper/css/swiper.css";
 export default {
   name: "home",
+
+  watch: {
+    "$route.path"(newVal , old) {
+        if(newVal === "/home"){
+          this.address = this.$route.query.address
+        }
+        console.log(this.$route)
+    }
+  },
+  methods: {
+    jumpCity() {
+      this.$router.push("/home/city");
+    },
+
+    //百度地图定位
+
+    initPosition() {
+      var _this = this;
+      var map = new BMap.Map("allmap");
+      var geolocation = new BMap.Geolocation();
+      geolocation.getCurrentPosition(
+        function(r) {
+          if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+            var geoc = new BMap.Geocoder();
+            var point = new BMap.Point(r.point.lng, r.point.lat);
+
+            //地址逆解析
+            geoc.getLocation(point, function(rs) {
+              var addComp = rs.addressComponents;
+              _this.address = addComp.city.slice(0, addComp.city.length - 1);
+              // if (!_this.historyCity.some(el => el === addComp.city)) {
+              //   _this.historyCity.push(addComp.city);
+              // }
+            });
+          } else {
+            alert("failed" + this.getStatus());
+          }
+        },
+        { enableHighAccuracy: true }
+      );
+    }
+  },
   data() {
     return {
       imgs: {
         down: require("@/assets/movie-imgs/首页_slices/下 箭头.png"),
         search: require("@/assets/movie-imgs/首页_slices/搜索.png"),
         clock: require("@/assets/movie-imgs/首页_slices/打卡.png"),
-        swiperImg: [require("@/assets/movie-imgs/首页_slices/大鱼海棠.png"), 
-        require("@/assets/movie-imgs/首页_slices/大鱼海棠复制 4.png"),
-        require("@/assets/movie-imgs/首页_slices/大鱼海棠.png")]
+        swiperImg: [
+          require("@/assets/movie-imgs/首页_slices/大鱼海棠.png"),
+          require("@/assets/movie-imgs/首页_slices/大鱼海棠复制 4.png"),
+          require("@/assets/movie-imgs/首页_slices/大鱼海棠.png")
+        ]
       },
       hotList: [], // 正在热映
       futureList: [],
-      heraldList:[]
+      heraldList: [],
+      address: ""
+      // cityShow: true
     };
   },
   components: {
     titleP: titleP
   },
   mounted: function() {
+    //默认百度插件执行
+    console.log(1);
+    this.initPosition();
+
+    //betterSrcoll插件
+    let bs = new this.BScroll(".home", {
+      // ...... 详见配置项
+      click: true
+    });
     new Swiper(".swiper-container", {
       autoplay: {
         //自动
@@ -126,7 +189,7 @@ export default {
         }
       }
     });
-       new Swiper(".swiper-container-herald", {
+    new Swiper(".swiper-container-herald", {
       slidesPerView: "auto",
       spaceBetween: 15,
       breakpoints: {
@@ -141,11 +204,16 @@ export default {
   created() {
     this.hotList = this.$store.state.hotList;
     this.futureList = this.$store.state.futureList;
-    this.heraldList = this.$store.state.heraldList
+    this.heraldList = this.$store.state.heraldList;
   }
 };
 </script>
 <style lang="scss" scoped>
+// 修改
+.home {
+  height: 100%;
+}
+
 .header {
   height: 36px;
   width: 100%;
@@ -278,19 +346,23 @@ export default {
     width: auto !important;
   }
 }
-.swiper-container-herald{
-   margin-left: 20px;
-   p {
-     width: 295px;
-height:36px;
-font-size:12px;
-font-family:PingFangSC-Medium,PingFangSC;
-font-weight:500;
-color:rgba(223,223,223,1);
-line-height:18px;
-   }
-   .swiper-slide {
+.swiper-container-herald {
+  margin-left: 20px;
+  p {
+    width: 295px;
+    height: 36px;
+    font-size: 12px;
+    font-family: PingFangSC-Medium, PingFangSC;
+    font-weight: 500;
+    color: rgba(223, 223, 223, 1);
+    line-height: 18px;
+  }
+  .swiper-slide {
     width: auto !important;
   }
+}
+// 修改的地方
+.betterScroll {
+  padding-bottom: 100px;
 }
 </style>
