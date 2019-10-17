@@ -104,7 +104,7 @@ export default {
       maskIsShow: false,
       letter: "A",
       bs: {},
-      search: require("@/assets/movie-imgs/首页_slices/搜索.png"),
+      search: require("@/assets/movie-imgs/home/search.png"),
       searchCity: "",
       searchCityList: [],
       position: require("@/assets/movie-imgs/定位/position.png")

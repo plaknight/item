@@ -2,7 +2,7 @@
   <div id="app">
     <router-view />
     <div class="nav"  >
-  <tabbar v-show="$route.meta.isShow"></tabbar>
+  <tabbar  v-show="$route.meta.isShow" ></tabbar>      <!--  -->
     </div>
   
   </div>
@@ -24,8 +24,8 @@ export default {
   created(){
     
   },
-  mounted(){
-
+  mounted:function(){
+    
   },
   components: {
     tabbar:tabbar

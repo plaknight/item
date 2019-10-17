@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <router-view></router-view>
-    <div class="betterScroll" v-show="$route.meta.isShow">
+   <div class="betterScroll" >    <!-- v-show="$route.meta.isShow" -->
       <!-- betterScroll 插件 -->
       <!-- 头部开始 -->
       <div class="header">
@@ -120,13 +120,13 @@ export default {
   data() {
     return {
       imgs: {
-        down: require("@/assets/movie-imgs/首页_slices/下 箭头.png"),
-        search: require("@/assets/movie-imgs/首页_slices/搜索.png"),
-        clock: require("@/assets/movie-imgs/首页_slices/打卡.png"),
+        down: require("@/assets/movie-imgs/home/down.png"),
+        search: require("@/assets/movie-imgs/home/search.png"),
+        clock: require("@/assets/movie-imgs/home/card.png"),
         swiperImg: [
-          require("@/assets/movie-imgs/首页_slices/大鱼海棠.png"),
-          require("@/assets/movie-imgs/首页_slices/大鱼海棠复制 4.png"),
-          require("@/assets/movie-imgs/首页_slices/大鱼海棠.png")
+          require("@/assets/movie-imgs/home/swiper1.png"),
+          require("@/assets/movie-imgs/home/swiper2.png"),
+          require("@/assets/movie-imgs/home/swiper3.png")
         ]
       },
       hotList: [], // 正在热映
@@ -210,6 +210,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 // 修改
+
 .home {
   height: 100%;
 }
