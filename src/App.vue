@@ -2,7 +2,7 @@
   <div id="app">
     <router-view />
     <div class="nav">
-  <tabbar></tabbar>
+  <tabbar v-if="$route.meta.isShow"></tabbar>
     </div>
   
   </div>
@@ -18,7 +18,8 @@ export default {
   },
   components: {
     tabbar:tabbar
-  }
+  },
+
 };
 
 </script>
@@ -27,10 +28,11 @@ html,
 body {
   background: #23262d;
   width: 100%;
-  height: auto;
+  height: 100%;
 }
 #app {
   width: 100%;
+  height: 100%;
   overflow: hidden;
 }
 a {
