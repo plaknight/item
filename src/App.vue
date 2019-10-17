@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <router-view />
-    <div class="nav">
-  <tabbar></tabbar>
-    </div>
+    <!-- <div class="nav"> -->
+  <!-- <tabbar></tabbar> -->
+    <!-- </div> -->
   
   </div>
 </template>
@@ -22,7 +22,7 @@ export default {
 };
 
 </script>
-<style lang="scss">
+<style lang="scss" >
 html,
 body {
   background: #23262d;

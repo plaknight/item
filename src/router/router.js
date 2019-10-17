@@ -41,7 +41,23 @@ export default new Router({
     {
       path:'*',
       redirect: '/home'
+    },
+    {
+      path: '/myorder',
+      name: 'myorder',
+      component: () => import(/* webpackChunkName: "myorder" */ '../views/myorder/index.vue')
+    },
+    {
+      path: '/newcenter',
+      name: 'newcenter',
+      component: () => import(/* webpackChunkName: "myorder" */ '../views/newcenter/index.vue')
+    },
+    {
+      path: '/news',
+      name: 'news',
+      component: () => import(/* webpackChunkName: "myorder" */ '../views/news/index.vue')
     }
+    
     
   ]
 })
