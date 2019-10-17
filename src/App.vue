@@ -15,15 +15,23 @@ export default {
   data() {
     return {};
   },
-  methods: {
-    get() {
-      // console.log(this.)
+  methods: {},
+  created() {},
+  mounted() {
+    console.log("执行了");
+    if (!window.localStorage.getItem("usermsg")) {
+      this.$router.push("/login").catch(err => {});
     }
   },
-  created() {},
-  mounted() {},
   components: {
     tabbar: tabbar
+  },
+  watch: {
+    "$route.path"() {
+      if (!window.localStorage.getItem("usermsg")) {
+        this.$router.push("login").catch(err => {});
+      }
+    }
   }
 };
 </script>

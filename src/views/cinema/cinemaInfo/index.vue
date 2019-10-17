@@ -54,7 +54,7 @@ export default {
         slidesPerView: "auto",
         spaceBetween: -60,
         centeredSlides: true,
-        loop: true,
+        loop: true
       }
     };
   },
@@ -79,7 +79,7 @@ export default {
     this.cinemaObj = JSON.parse(localStorage.getItem("cinemaObj"));
   },
   destroyed() {
-    widow.localStorage.removeItem("cinemaObj");
+    window.localStorage.removeItem("cinemaObj");
   }
 };
 </script>
