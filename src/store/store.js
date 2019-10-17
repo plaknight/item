@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import Mock from 'mockjs'
 import cinema from './modules/cinema.js'
 import city from './modules/city.js'
+import cinemaInfo from './modules/cinemaInfo.js'
 Vue.use(Vuex)
 var HotList = []
 for (var i = 0; i < 10; i++) {
@@ -57,6 +58,7 @@ export default new Vuex.Store({
   },
   modules: {
     cinema,
-    city
+    city,
+    cinemaInfo
   }
 })
