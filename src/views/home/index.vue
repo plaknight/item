@@ -219,6 +219,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 // 修改
+
 .home {
   height: 100%;
 }

@@ -30,6 +30,9 @@ import BScroll from 'better-scroll'
 //   //   next()
 //   // }
 
+//   // ${//to and from are Route Object,next() must be called to resolve the hook}
+//   console.log(to)
+//   next()
 // })
 
 //全局引入组件
