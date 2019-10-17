@@ -5,7 +5,7 @@
       <span class="username">yujia1130</span>
       <span class="goto">></span>
       <div class="huiyuan">V1青铜会员&nbsp;></div>
-      <router-link class="shezhi" to="/personal"></router-link>
+      <router-link class="shezhi" to="/my/personal"></router-link>
       <!-- <div class="shezhi"></div> -->
       <div class="pinglun"></div>
       <div class="member">

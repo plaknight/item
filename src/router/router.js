@@ -1,62 +1,177 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
+import Home from '@/views/home/index.vue'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes: [
-    {
-      path: '/home',
-      name: 'home',
-      component: () => import(/* webpackChunkName: "about" */ '../views/home/index.vue'),
-    }, 
-    {
-      path: '/movie',
-      name: 'movie',
-      component: () => import(/* webpackChunkName: "about" */ '../views/movie/index.vue'),
-      redirect: 'movie/hots',
-      children:[
-        {
-          path:'future',
-          component:()=> import ('../views/movie/movie-future/index.vue')
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes: [{
+        path: '/home',
+        name: 'home',
+        component: Home,
+        meta: {
+            isShow: true
+        },
+        children: [{
+            path: 'city',
+            component: () =>
+                import('@/views/home/city/index.vue'),
+            meta: {
+                isShow: false
+            }
         },
         {
-          path:'hots',
-          component:()=> import ('../views/movie/movie-hots/index.vue')
-        }
-      ]
-    }, 
-    {
-      path: '/cinema',
-      name: 'cinema',
-      component: () => import(/* webpackChunkName: "about" */ '../views/cinema/index.vue')
-    }, 
-    {
-      path: '/my',
-      name: 'my',
-      component: () => import(/* webpackChunkName: "about" */ '../views/my/index.vue'),
-      redirect: 'my/mys',
-      children:[
-        {
-          path:'coupon',
-          component:()=> import ('../views/my/coupon/index.vue')
+            path: 'signIn',
+            component: () =>
+                import('@/views/home/signIn/index.vue'),
+            meta: {
+                isShow: false
+            }
         },
         {
-          path:'mys',
-          component:()=> import ('../views/my/index/index.vue')
+            path: 'search',
+            component: () =>
+                import('@/views/home/search/index.vue'),
+            meta: {
+                isShow: false
+            }
         }
-      ]
+        ]
     },
     {
-      path: '/personal',
-      name: 'personal',
-      component: () => import(/* webpackChunkName: "about" */ '../views/my/personal/index.vue')
-    }, 
-    // {
-    //   path:'*',
-    //   redirect: '/home'
-    // }
-  ]
+        path: '/movie',
+        name: 'movie',
+        component: () =>
+            import( /* webpackChunkName: "about" */ '../views/movie/index.vue'),
+        redirect: 'movie/hots',
+        meta: {
+            isShow: true
+        },
+        children: [{
+            path: 'future',
+            component: () =>
+                import('../views/movie/movie-future/index.vue'),
+            meta: {
+                isShow: true
+            }
+        },
+        {
+            path: 'hots',
+            component: () =>
+                import('../views/movie/movie-hots/index.vue'),
+            meta: {
+                isShow: true
+            }
+        }
+        ],
+        meta: {
+            isShow: true
+        }
+    },
+    {
+        path: '/cinema',
+        name: 'cinema',
+        component: () =>
+            import( /* webpackChunkName: "about" */ '../views/cinema/index.vue'),
+
+        meta: {
+            isShow: true
+        },
+    },
+    {
+        path: '/cinemaInfo',
+        name: 'cinemaInfo',
+        component: () =>
+            import( /* webpackChunkName: "cinemaInfo" */ '../views/cinema/cinemaInfo/index.vue'),
+        meta: {
+            isShow: false
+        },
+    },
+    {
+        path: '/nearbyMap',
+        name: 'nearbyMap',
+        component: () =>
+            import( /* webpackChunkName: "nearbyMap" */ '../views/nearbyMap/index.vue'),
+        meta: {
+            isShow: false
+        },
+    },
+
+    {
+        path: '/my',
+        name: 'my',
+        component: () =>
+            import( /* webpackChunkName: "about" */ '@/views/my/index.vue'),
+        meta: {
+            isShow: true
+        },
+        redirect: '/my/index/index',
+        children: [
+            {
+                path: 'coupon', name: 'coupon', component: () =>
+                    import( /* webpackChunkName: "about" */ '@/views/my/coupon/index.vue'),
+                meta: {
+                    isShow: true
+                },
+            },
+            {
+                path: 'personal', name: 'personal', component: () =>
+                    import( /* webpackChunkName: "about" */ '@/views/my/personal/index.vue'),
+                meta: {
+                    isShow: true
+                },
+            },
+            {
+                path: 'index/index', name: 'index', component: () =>
+                    import( /* webpackChunkName: "about" */ '@/views/my/index/index.vue'),
+                meta: {
+                    isShow: true
+                },
+            }
+        ]
+    },
+
+    {
+        path: '/ticket',
+        name: 'ticket',
+        component: () =>
+            import( /* webpackChunkName: "about" */ '../views/ticket/index.vue'),
+        meta: {
+            isShow: true
+        }
+    }, // 临时选座路由
+    {
+        path: '/order',
+        name: 'order',
+        component: () =>
+            import( /* webpackChunkName: "about" */ '../views/order/index.vue'),
+        meta: {
+            isShow: false
+        }
+    },
+    {
+        path: '/tickets',
+        name: 'tickets',
+        component: () =>
+            import( /* webpackChunkName: "about" */ '../views/tickets/index.vue'),
+        meta: {
+            isShow: false
+        }
+    },
+    {
+        path: '/seat',
+        name: 'seat',
+        component: () =>
+            import( /* webpackChunkName: "about" */ '../views/seat/index.vue'),
+        meta: {
+            isShow: false
+        }
+    },
+    {
+        path: '*',
+        redirect: '/home'
+    }
+
+    ]
 })
