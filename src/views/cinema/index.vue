@@ -29,9 +29,9 @@ export default {
   data() {
     return {
       imgs: {
-     down: require("@/assets/movie-imgs/首页_slices/下 箭头.png"),
+     down: require("@/assets/movie-imgs/home/下 箭头.png"),
 
-        search: require("@/assets/movie-imgs/首页_slices/搜索.png"),
+        search: require("@/assets/movie-imgs/home/搜索.png"),
 
       }
     };

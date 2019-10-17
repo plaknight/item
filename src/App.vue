@@ -1,37 +1,31 @@
 <template>
   <div id="app">
-    <router-view />
-    <div class="nav"  >
-  <tabbar v-show="$route.meta.isShow"></tabbar>
+    <transition enter-active-class="animated slideInRight faster" mode="out-in">
+      <router-view />
+    </transition>
+    <div class="nav">
+      <tabbar v-show="$route.meta.isShow"></tabbar>
     </div>
-  
   </div>
 </template>
 <script>
-import tabbar from '@/components/tabbar.vue'
-import '@/assets/css/common/reset.css'
+import tabbar from "@/components/tabbar.vue";
+import "@/assets/css/common/reset.css";
 export default {
   data() {
-    return {
-
-    };
+    return {};
   },
   methods: {
-    get(){
-// console.log(this.)
+    get() {
+      // console.log(this.)
     }
   },
-  created(){
-    
-  },
-  mounted(){
-
-  },
+  created() {},
+  mounted() {},
   components: {
-    tabbar:tabbar
+    tabbar: tabbar
   }
 };
-
 </script>
 <style lang="scss">
 html,
@@ -46,11 +40,10 @@ body {
   overflow: hidden;
 }
 a {
-   -webkit-tap-highlight-color:rgba(0,0,0,0);
-   text-decoration: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  text-decoration: none;
 }
 .nav {
   height: 70px;
 }
-
 </style>

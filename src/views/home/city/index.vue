@@ -8,7 +8,7 @@
               type="text"
               placeholder="输入城市"
               v-model="searchCity"
-              @keydown="clearText"
+              @keydown.13="clearText"
             />
           </div>
           <p>取消</p>
@@ -92,22 +92,23 @@
 //引入 城市数据
 
 import cityList from "./data.json";
+import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
 export default {
   name: "city",
   data() {
     return {
-      address: "",
+      // address: "",
       cityListLetter: Object.keys(cityList).filter(el => el !== "hot"),
       hotCity: cityList["hot"],
       cityList,
-      historyCity: [],
+      // historyCity: [],
       maskIsShow: false,
       letter: "A",
       bs: {},
-      search: require("@/assets/movie-imgs/首页_slices/搜索.png"),
+      search: require("@/assets/movie-imgs/home/搜索.png"),
       searchCity: "",
       searchCityList: [],
-      position: require("@/assets/movie-imgs/定位/position.png")
+      position: require("@/assets/movie-imgs/search/position.png")
     };
   },
   watch: {
@@ -122,18 +123,37 @@ export default {
           });
         }
       }
-    },
-
+    }
+  },
+  computed: {
+    ...mapState({
+      // address(state){
+      // }
+    }),
+    ...mapGetters({
+      address: "city/getAddress",
+      historyCity: "city/gethistoryCity"
+    })
   },
   methods: {
-    backHome(){
+    ...mapMutations({
+      changeAddress: "city/changeAddress"
+      // initPosition: "city/initPosition"
+    }),
+    backHome() {
       // console.log(window)
-      this.$router.push({ path:'/home',query: {
-			            address: this.address
-			          }}).catch(err => {})
+      this.$router
+        .push({
+          path: "/home"
+          // query: {
+          //   address: this.address
+          // }
+        })
+        .catch(err => {});
     },
     clearText() {
       this.searchCity = "";
+      console.log(this.$store);
     },
 
     jumpHeader(val) {
@@ -144,7 +164,7 @@ export default {
           this.historyCity.pop();
         }
       }
-      this.address = val;
+      this.changeAddress(val);
       this.bs.scrollTo(0, 0, 400);
     },
 
@@ -159,11 +179,12 @@ export default {
       var eleTopChild = el.currentTarget.offsetTop;
       var eleHeight = el.currentTarget.children[0].offsetHeight;
       var nowY = el.changedTouches[0].pageY;
-      var index = Math.floor((nowY - eleTop - eleTopChild - 10) / eleHeight);
+      var index = Math.floor((nowY - eleTop - eleTopChild) / eleHeight);
       return index;
     },
     move(el) {
       this.letter = this.cityListLetter[this.pubulic(el)];
+      this.jumpCity(this.letter);
     },
     end(el) {
       this.letter = this.cityListLetter[this.pubulic(el)];
@@ -176,6 +197,7 @@ export default {
       //scrollToElement(el, time, offsetX, offsetY, easing)
       const h5 = this.$refs.cityList.querySelectorAll("h5");
       let ele = Array.from(h5).find(el => el.innerText === val);
+      console.log(ele);
       this.bs.scrollToElement(ele, 400, 0, number);
     },
 
@@ -193,9 +215,13 @@ export default {
             //地址逆解析
             geoc.getLocation(point, function(rs) {
               var addComp = rs.addressComponents;
-               _this.address = addComp.city.slice(0,addComp.city.length-1);
-              if (!_this.historyCity.some(el => el === addComp.city)) {
-                _this.historyCity.push(addComp.city);
+              // _this.address = addComp.city.slice(0, addComp.city.length - 1);
+
+              _this.changeAddress(
+                addComp.city.slice(0, addComp.city.length - 1)
+              );
+              if (!_this.historyCity.some(el => el === _this.address)) {
+                _this.historyCity.push(_this.address);
               }
             });
           } else {
@@ -208,11 +234,12 @@ export default {
   },
   created() {},
   mounted() {
+    // console.log(1);
     this.bs = new this.BScroll(".city-wrap", {
       // ...... 详见配置项
       click: true
     });
-    this.initPosition();
+    // this.initPosition();
   }
 };
 </script>
@@ -361,6 +388,9 @@ export default {
       display: flex;
       align-items: center;
       & > div {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         width: 90px;
         height: 30px;
         border: 2px solid rgba(249, 195, 74, 1);
@@ -390,6 +420,9 @@ export default {
       // justify-content: space-between;
       align-items: center;
       .positionCity-item {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         width: 90px;
         height: 30px;
         background: rgba(51, 54, 61, 1);

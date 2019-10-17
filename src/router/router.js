@@ -17,29 +17,50 @@ export default new Router({
       children: [
         {
           path: 'city',
-          component:()=> import ('@/views/home/city/index.vue'),
+          component: () => import('@/views/home/city/index.vue'),
           meta: {
             isShow: false
           }
         },
+        {
+          path: 'signIn',
+          component: () => import('@/views/home/signIn/index.vue'),
+          meta: {
+            isShow: false
+          }
+        },
+        {
+          path: 'search',
+          component: () => import('@/views/home/search/index.vue'),
+          meta: {
+            isShow: false
+          }
+        }
       ]
-    }, 
+    },
+    {
+      path: '/login',
+      component: () => import('@/views/login/index.vue'),
+      meta: {
+        isShow: false
+      }
+    },
     {
       path: '/movie',
       name: 'movie',
       component: () => import(/* webpackChunkName: "about" */ '../views/movie/index.vue'),
       redirect: 'movie/hots',
-      children:[
+      children: [
         {
-          path:'future',
-          component:()=> import ('../views/movie/movie-future/index.vue'),
+          path: 'future',
+          component: () => import('../views/movie/movie-future/index.vue'),
           meta: {
             isShow: true
           }
         },
         {
-          path:'hots',
-          component:()=> import ('../views/movie/movie-hots/index.vue'),
+          path: 'hots',
+          component: () => import('../views/movie/movie-hots/index.vue'),
           meta: {
             isShow: true
           }
@@ -48,7 +69,7 @@ export default new Router({
       meta: {
         isShow: true
       }
-    }, 
+    },
     {
       path: '/cinema',
       name: 'cinema',
@@ -56,7 +77,7 @@ export default new Router({
       meta: {
         isShow: true
       }
-    }, 
+    },
     {
       path: '/my',
       name: 'my',
@@ -66,9 +87,9 @@ export default new Router({
       }
     },
     {
-      path:'*',
-      redirect: '/home'
+      path: '*',
+      redirect: '/login'
     }
-    
+
   ]
 })
