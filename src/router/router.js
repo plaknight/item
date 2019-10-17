@@ -11,12 +11,18 @@ export default new Router({
       path: '/home',
       name: 'home',
       component: () => import(/* webpackChunkName: "about" */ '../views/home/index.vue'),
+      meta: { 
+        isShow:true
+       }
     }, 
     {
       path: '/movie',
       name: 'movie',
       component: () => import(/* webpackChunkName: "about" */ '../views/movie/index.vue'),
       redirect: 'movie/hots',
+      meta: { 
+        isShow:true
+       },
       children:[
         {
           path:'future',
@@ -31,12 +37,34 @@ export default new Router({
     {
       path: '/cinema',
       name: 'cinema',
-      component: () => import(/* webpackChunkName: "about" */ '../views/cinema/index.vue')
+      component: () => import(/* webpackChunkName: "about" */ '../views/cinema/index.vue'),
+      meta: { 
+        isShow:true
+       },
+    }, 
+    {
+      path:'/cinemaInfo',
+      name: 'cinemaInfo',
+      component: () => import(/* webpackChunkName: "cinemaInfo" */ '../views/cinema/cinemaInfo/index.vue'),
+      meta: { 
+        isShow:false
+       },
+    },
+    {
+      path: '/nearbyMap',
+      name: 'nearbyMap',
+      component: () => import(/* webpackChunkName: "nearbyMap" */ '../views/nearbyMap/index.vue'),
+      meta: { 
+        isShow:false
+       }
     }, 
     {
       path: '/my',
       name: 'my',
-      component: () => import(/* webpackChunkName: "about" */ '../views/my/index.vue')
+      component: () => import(/* webpackChunkName: "about" */ '../views/my/index.vue'),
+      meta: { 
+        isShow:true
+       }
     },
     {
       path:'*',
