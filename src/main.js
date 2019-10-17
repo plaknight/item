@@ -16,6 +16,17 @@ import "animate.css"
 import BScroll from 'better-scroll'
 //判断是否登录
 // router.beforeEach((to, from, next) => {
+//   console.log(to.name)
+//   // if (to.name) {
+//   if (!window.localStorage.getItem('usermsg')) {
+//     next('/login')
+//   } else {
+//     next()
+//   }
+//   // } else {
+//   //   next()
+//   // }
+
 //   // ${//to and from are Route Object,next() must be called to resolve the hook}
 //   console.log(to)
 //   next()
@@ -38,3 +49,12 @@ var vm = new Vue({
 }).$mount('#app')
 
 
+// router.beforeEach((to, from, next) => {
+//   // console.log(to.name)
+//   // if (to.name) {
+//   if (!window.localStorage.getItem('usermsg')) {
+//     console.log(123)
+//     next('/login')
+//   }
+//   next()
+// })

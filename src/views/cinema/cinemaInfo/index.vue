@@ -54,7 +54,7 @@ export default {
         slidesPerView: "auto",
         spaceBetween: -60,
         centeredSlides: true,
-        loop: true,
+        loop: true
       }
     };
   },

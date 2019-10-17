@@ -3,9 +3,9 @@
     <transition enter-active-class="animated slideInRight faster" mode="out-in">
       <router-view />
     </transition>
-    <div class="nav"  >
-  <tabbar  v-show="$route.meta.isShow" ></tabbar>  
-  </div>
+    <div class="nav" v-show="$route.meta.isShow">
+      <tabbar></tabbar>
+    </div>
   </div>
 </template>
 <script>
@@ -15,22 +15,25 @@ export default {
   data() {
     return {};
   },
-  methods: {
-    get() {
-      // console.log(this.)
+  methods: {},
+  created() {},
+  mounted() {
+    if (!window.localStorage.getItem("usermsg")) {
+      this.$router.push("/login").catch(err => {});
     }
   },
-  created(){
-
-  },
-  mounted:function(){
-    
-  },
-
-
+  created() {},
+  mounted: function() {},
 
   components: {
     tabbar: tabbar
+  },
+  watch: {
+    "$route.path"() {
+      if (!window.localStorage.getItem("usermsg")) {
+        this.$router.push("login").catch(err => {});
+      }
+    }
   }
 };
 </script>
@@ -44,7 +47,6 @@ body {
 #app {
   width: 100%;
   height: 100%;
-  overflow: hidden;
 }
 a {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);

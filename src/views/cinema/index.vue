@@ -25,37 +25,42 @@
           </div>
         </div>
         <div class="cinemaInfo" v-if="ifPosition">
-            <div class="cinemaInfo-c center">
-                <div class="cinemaBox" v-for="(item,index) in cinemaInfo" :key="index" @click="toCinemaInfo(item.id)">
-                  <div class="cinemaBox-c">
-                    <div class="title">
-                      <h3>{{item.name}}</h3>
-                      <div class="money">
-                        <span class="num">{{item.maney}}</span>
-                        <span class="qi">起</span>
-                      </div>
-                    </div>
-                    <div class="cinemaAddress">
-                      <p>{{item.address}}</p>
-                      <span>1.7km</span>
-                    </div>
-                    <div class="coupon">
-                      <div class="couponInfo">
-                        <span>惠</span>
-                        <p>我不是药神等4部影片特惠</p>
-                      </div>
-                      <div class="couponInfo2">
-                        <span>促</span>
-                        <p>观影套餐限量特惠</p>
-                      </div>
-                      <div class="couponInfo3">
-                        <span>卡</span>
-                        <p>开卡特惠，每单2张立减2元</p>
-                      </div>
-                    </div>
+          <div class="cinemaInfo-c center">
+            <div
+              class="cinemaBox"
+              v-for="(item, index) in cinemaInfo"
+              :key="index"
+              @click="toCinemaInfo(item.id)"
+            >
+              <div class="cinemaBox-c">
+                <div class="title">
+                  <h3>{{ item.name }}</h3>
+                  <div class="money">
+                    <span class="num">{{ item.maney }}</span>
+                    <span class="qi">起</span>
                   </div>
                 </div>
+                <div class="cinemaAddress">
+                  <p>{{ item.address }}</p>
+                  <span>1.7km</span>
+                </div>
+                <div class="coupon">
+                  <div class="couponInfo">
+                    <span>惠</span>
+                    <p>我不是药神等4部影片特惠</p>
+                  </div>
+                  <div class="couponInfo2">
+                    <span>促</span>
+                    <p>观影套餐限量特惠</p>
+                  </div>
+                  <div class="couponInfo3">
+                    <span>卡</span>
+                    <p>开卡特惠，每单2张立减2元</p>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
         <div class="error" v-else>未获取定位信息,无法加载影院</div>
       </div>
@@ -77,7 +82,7 @@ export default {
         search: require("@/assets/movie-imgs/首页_slices/搜索.png"),
         position: require("@/assets/movie-imgs/cinema/定位@2x.png")
       },
-      ifPosition:false,
+      ifPosition: false
     };
   },
   computed: {
@@ -85,13 +90,13 @@ export default {
       cityName(state) {
         return state.cinema.map.cityName;
       },
-      pointLat(state){
+      pointLat(state) {
         return state.cinema.map.pointLat;
       },
-      pointLng(state){
+      pointLng(state) {
         return state.cinema.map.pointLng;
       },
-      cinemaInfo(state){
+      cinemaInfo(state) {
         return state.cinema.cinemaInfo;
       }
     })
@@ -101,20 +106,27 @@ export default {
       initPosition: "cinema/initPosition"
     }),
     toMap() {
-      this.$router.push({name:'nearbyMap',params:{pointLat:this.pointLat,pointLng:this.pointLng,cityName:this.cityName}});
+      this.$router.push({
+        name: "nearbyMap",
+        params: {
+          pointLat: this.pointLat,
+          pointLng: this.pointLng,
+          cityName: this.cityName
+        }
+      });
     },
-    toCinemaInfo(val){
-      var index = this.cinemaInfo.findIndex(ele => ele.id == val)
-      localStorage.setItem('cinemaObj',JSON.stringify(this.cinemaInfo[index]))
-      this.$router.push({name:'cinemaInfo'})
+    toCinemaInfo(val) {
+      var index = this.cinemaInfo.findIndex(ele => ele.id == val);
+      localStorage.setItem("cinemaObj", JSON.stringify(this.cinemaInfo[index]));
+      this.$router.push({ name: "cinemaInfo" });
     },
-    newPosition(){
+    newPosition() {
       Dialog.confirm({
         title: "定位",
         message: "是否允许获取您的位置信息"
       })
         .then(() => {
-          this.ifPosition = true
+          this.ifPosition = true;
           this.initPosition();
         })
         .catch(() => {
@@ -129,7 +141,7 @@ export default {
         message: "是否允许获取您的位置信息"
       })
         .then(() => {
-          this.ifPosition = true
+          this.ifPosition = true;
           this.initPosition();
         })
         .catch(() => {
@@ -239,58 +251,58 @@ export default {
           }
         }
       }
-      .cinemaInfo{
+      .cinemaInfo {
         width: 100%;
         height: auto;
         margin-top: 12px;
-        
-        .cinemaInfo-c{
+
+        .cinemaInfo-c {
           height: 100%;
-          .cinemaBox{
+          .cinemaBox {
             width: 100%;
             height: 146px;
-            background-color: #2C2F36;
+            background-color: #2c2f36;
             margin-bottom: 15px;
-            .cinemaBox-c{
+            .cinemaBox-c {
               width: 312px;
               height: 100%;
               margin: 0 auto;
-              color:#B7B8BB;
-              .title{
+              color: #b7b8bb;
+              .title {
                 width: 100%;
                 height: 20px;
                 display: flex;
                 justify-content: space-between;
                 padding-top: 9px;
                 margin-bottom: 3px;
-                h3{
-                  color:#FFFFFF;
+                h3 {
+                  color: #ffffff;
                   font-size: 14px;
-                  line-height:20px;
-                  font-weight:500;
+                  line-height: 20px;
+                  font-weight: 500;
                 }
-                .money{
+                .money {
                   height: 20px;
-                 .num{
-                   color: #FBC34A;
-                   font-size: 14px;
-                   height: 20px;
-                   line-height: 20px; 
-                 }
-                 .qi{
-                   font-size: 12px;
-                   color:#C8C8C9;
-                   height: 12px;
-                   line-height: 12px;
-                 }
+                  .num {
+                    color: #fbc34a;
+                    font-size: 14px;
+                    height: 20px;
+                    line-height: 20px;
+                  }
+                  .qi {
+                    font-size: 12px;
+                    color: #c8c8c9;
+                    height: 12px;
+                    line-height: 12px;
+                  }
                 }
               }
-              .cinemaAddress{
+              .cinemaAddress {
                 width: 100%;
                 height: 17px;
                 display: flex;
                 justify-content: space-between;
-                p{
+                p {
                   width: 240px;
                   font-size: 12px;
                   height: 100%;
@@ -300,39 +312,53 @@ export default {
                   white-space: nowrap;
                 }
               }
-              .coupon{
+              .coupon {
                 width: 100%;
                 height: 75px;
-                margin-top:10px;
+                margin-top: 10px;
                 display: flex;
                 flex-wrap: wrap;
                 align-content: space-between;
-                .couponInfo2{
-                  span{
-                    background:linear-gradient(135deg,rgba(176,70,157,1) 0%,rgba(97,72,170,1) 100%) !important;
+                .couponInfo2 {
+                  span {
+                    background: linear-gradient(
+                      135deg,
+                      rgba(176, 70, 157, 1) 0%,
+                      rgba(97, 72, 170, 1) 100%
+                    ) !important;
                   }
                 }
-                .couponInfo3{
-                  span{
-                    background:linear-gradient(135deg,rgba(50,36,149,1) 0%,rgba(49,56,172,1) 100%) !important;
+                .couponInfo3 {
+                  span {
+                    background: linear-gradient(
+                      135deg,
+                      rgba(50, 36, 149, 1) 0%,
+                      rgba(49, 56, 172, 1) 100%
+                    ) !important;
                   }
                 }
-                .couponInfo,.couponInfo2,.couponInfo3{
+                .couponInfo,
+                .couponInfo2,
+                .couponInfo3 {
                   width: 100%;
                   height: 19px;
                   display: flex;
                   justify-content: start;
-                  span{
+                  span {
                     display: block;
                     width: 18px;
                     height: 19px;
-                    background:linear-gradient(135deg,rgba(235,110,117,1) 0%,rgba(247,166,83,1) 100%);
-                    border-radius:4px;
-                    color: #DFDFDF;
+                    background: linear-gradient(
+                      135deg,
+                      rgba(235, 110, 117, 1) 0%,
+                      rgba(247, 166, 83, 1) 100%
+                    );
+                    border-radius: 4px;
+                    color: #dfdfdf;
                     text-align: center;
                     line-height: 19px;
                   }
-                  p{
+                  p {
                     margin-left: 9px;
                     font-size: 12px;
                     height: 17px;
@@ -344,7 +370,7 @@ export default {
           }
         }
       }
-      .error{
+      .error {
         width: 100%;
         height: 400px;
         color: #fff;
