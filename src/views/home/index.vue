@@ -19,44 +19,52 @@
     <!-- 轮播开始 -->
     <div class="swiper-container">
       <div class="swiper-wrapper">
-        <div class="swiper-slide" v-for="(item,index) in imgs.swiperImg" :key="index">
+        <div
+          class="swiper-slide"
+          v-for="(item, index) in imgs.swiperImg"
+          :key="index"
+        >
           <img :src="item" alt />
         </div>
       </div>
     </div>
     <div class="swiper-pagination"></div>
-    <titleP msg="热映影片" msg2="全部"></titleP>
+    <router-link class="router-link movie" to="/movie">
+      <titleP msg="热映影片" msg2="全部"></titleP>
+    </router-link>
     <!-- 热映电影 -->
-      <div class="swiper-container-hots">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="(item) in hotList" :key="item.id">
-            <img :src="item.img" alt />
-            <p>{{ item.name }}</p>
-            <div class="btnBuy">购票</div>
-          </div>
+    <div class="swiper-container-hots">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" v-for="item in hotList" :key="item.id">
+          <img :src="item.img" alt />
+          <p>{{ item.name }}</p>
+          <div class="btnBuy">购票</div>
         </div>
       </div>
+    </div>
     <!-- 即将上映 -->
-    <titleP msg="即将上映" msg2="全部"></titleP>
-      <div class="swiper-container-future">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="(item) in futureList" :key="item.id">
-            <img :src="item.img" alt />
-            <p>{{ item.name }}</p>
-            <div class="time">{{ item.time }}</div>
-          </div>
+    <router-link class="router-link movie" to="/movie/future">
+      <titleP msg="即将上映" msg2="全部"></titleP>
+    </router-link>
+    <div class="swiper-container-future">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" v-for="item in futureList" :key="item.id">
+          <img :src="item.img" alt />
+          <p>{{ item.name }}</p>
+          <div class="time">{{ item.time }}</div>
         </div>
       </div>
+    </div>
     <!-- 预告 -->
-     <titleP msg="精选预告" msg2="更多"></titleP>
-      <div class="swiper-container-herald">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="(item) in heraldList" :key="item.id">
-            <img :src="item.img" alt />
-            <p>{{ item.text }}</p>
-          </div>
+    <titleP msg="精选预告" msg2="更多"></titleP>
+    <div class="swiper-container-herald">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" v-for="item in heraldList" :key="item.id">
+          <img :src="item.img" alt />
+          <p>{{ item.text }}</p>
         </div>
       </div>
+    </div>
   </div>
 </template>
 <script>
@@ -73,13 +81,15 @@ export default {
         down: require("@/assets/movie-imgs/首页_slices/下 箭头.png"),
         search: require("@/assets/movie-imgs/首页_slices/搜索.png"),
         clock: require("@/assets/movie-imgs/首页_slices/打卡.png"),
-        swiperImg: [require("@/assets/movie-imgs/首页_slices/大鱼海棠.png"), 
-        require("@/assets/movie-imgs/首页_slices/大鱼海棠复制 4.png"),
-        require("@/assets/movie-imgs/首页_slices/大鱼海棠.png")]
+        swiperImg: [
+          require("@/assets/movie-imgs/首页_slices/大鱼海棠.png"),
+          require("@/assets/movie-imgs/首页_slices/大鱼海棠复制 4.png"),
+          require("@/assets/movie-imgs/首页_slices/大鱼海棠.png")
+        ]
       },
       hotList: [], // 正在热映
       futureList: [],
-      heraldList:[]
+      heraldList: []
     };
   },
   components: {
@@ -126,7 +136,7 @@ export default {
         }
       }
     });
-       new Swiper(".swiper-container-herald", {
+    new Swiper(".swiper-container-herald", {
       slidesPerView: "auto",
       spaceBetween: 15,
       breakpoints: {
@@ -141,7 +151,7 @@ export default {
   created() {
     this.hotList = this.$store.state.hotList;
     this.futureList = this.$store.state.futureList;
-    this.heraldList = this.$store.state.heraldList
+    this.heraldList = this.$store.state.heraldList;
   }
 };
 </script>
@@ -278,18 +288,18 @@ export default {
     width: auto !important;
   }
 }
-.swiper-container-herald{
-   margin-left: 20px;
-   p {
-     width: 295px;
-height:36px;
-font-size:12px;
-font-family:PingFangSC-Medium,PingFangSC;
-font-weight:500;
-color:rgba(223,223,223,1);
-line-height:18px;
-   }
-   .swiper-slide {
+.swiper-container-herald {
+  margin-left: 20px;
+  p {
+    width: 295px;
+    height: 36px;
+    font-size: 12px;
+    font-family: PingFangSC-Medium, PingFangSC;
+    font-weight: 500;
+    color: rgba(223, 223, 223, 1);
+    line-height: 18px;
+  }
+  .swiper-slide {
     width: auto !important;
   }
 }

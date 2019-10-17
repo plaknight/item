@@ -16,34 +16,37 @@
         <div class="swiper-wrapper">
           <div
             class="swiper-slide"
-            :class="chooseID == item.id ? 'active' : ''"
-            v-for="item in futureList"
-            :key="item.id"
-            @click="chooseTime(item.date, item.id)"
+            :class="chooseDate == item ? 'active' : ''"
+            v-for="item in dateList"
+            :key="item"
+            @click="chooseTime(item)"
           >
-            {{ item.date }}
+            {{ item }}
           </div>
         </div>
       </div>
     </div>
-    <div class="choosetimeList" v-for="item in chooseTimeList" :key="item.id">
+    <movielist :movie="chooseTimeList"> </movielist>
+    <!-- <div class="choosetimeList" v-for="item in chooseTimeList" :key="item.id">
       <img :src="item.img" alt="" />
       <h2>{{ item.name }}</h2>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 import Swiper from "swiper";
 import "swiper/css/swiper.css";
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
+import movielist from "../../../components/movielist.vue";
 export default {
   name: "",
   data() {
     return {
       heraldList: [],
-      futureList: [],
       chooseTimeList: [],
-      chooseID: null
+      chooseDate: null,
+      dateList: []
     };
   },
   mounted() {
@@ -71,20 +74,35 @@ export default {
     });
   },
   methods: {
-    chooseTime(time, id) {
+    chooseTime(time) {
       this.chooseTimeList = this.futureList.filter(ele => {
         return ele.date == time;
       });
-      this.chooseID = id;
+      this.chooseDate = time;
     }
+  },
+  computed: {
+    ...mapState({
+      futureList(state) {
+        return state.hotmovie.datemovie;
+      }
+    })
   },
   created() {
     this.heraldList = this.$store.state.heraldList;
-    this.futureList = this.$store.state.futureList;
-    this.chooseID = this.futureList[0].id; // 默认第一个
+    this.futureList;
+    this.chooseDate = this.futureList[0].date; // 默认第一个
     this.chooseTimeList = this.futureList.filter(ele => {
       return ele.date == this.futureList[0].date;
-    }); // 默认第一个
+    });
+    this.futureList.forEach(ele => {
+      if (this.dateList.indexOf(ele.date) == -1) {
+        this.dateList.push(ele.date);
+      }
+    });
+  },
+  components: {
+    movielist
   }
 };
 </script>

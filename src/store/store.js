@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Mock from 'mockjs'
+import cinema from './modules/cinema.js'
+import movielist from "./modules/movielist.js"
 Vue.use(Vuex)
 var HotList = []
 for (var i = 0; i < 10; i++) {
@@ -17,7 +19,6 @@ for (var i = 0; i < 10; i++) {
         'name': Mock.Random.ctitle(4),
         'img': Mock.Random.dataImage('120x162'),
         'date': `12月${i + 2}日`,
-
     }))
 }
 var heraldList = []
@@ -39,7 +40,7 @@ for (var i = 0; i < 6; i++) {
     }))
 }
 
-import movielist from "./modules/movielist.js"
+
 export default new Vuex.Store({
     state: {
         hotList: HotList,

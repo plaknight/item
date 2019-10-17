@@ -1,14 +1,18 @@
 <template>
   <div class="movie">
-    <div class="header">
+    <div class="header" v-if="!$route.meta.isShow">
       <div class="header-c">
         <div class="adress">
           郑州
           <img :src="imgs.down" alt />
         </div>
         <div class="center">
-          <router-link class="router-link hot" to="/movie/hots">正在热映</router-link>
-          <router-link class="router-link future" to="/movie/future">即将上映</router-link>
+          <router-link class="router-link hot" to="/movie/hots"
+            >正在热映</router-link
+          >
+          <router-link class="router-link future" to="/movie/future"
+            >即将上映</router-link
+          >
         </div>
         <div class="search">
           <img :src="imgs.search" alt />
@@ -17,12 +21,10 @@
     </div>
 
     <router-view />
-    
   </div>
 </template>
 
 <script>
-
 export default {
   name: "",
   data() {
@@ -30,11 +32,9 @@ export default {
       imgs: {
         down: require("@/assets/movie-imgs/首页_slices/下 箭头.png"),
         search: require("@/assets/movie-imgs/首页_slices/搜索.png")
-      },
-    
+      }
     };
-  },
-
+  }
 };
 </script>
 
@@ -76,7 +76,7 @@ export default {
       width: 164px;
       height: 25px;
       border: 1px solid;
-       border-radius: 6px 5px 5px 6px;
+      border-radius: 6px 5px 5px 6px;
       border-image: linear-gradient(
           314deg,
           rgba(241, 158, 101, 1),
@@ -111,5 +111,4 @@ export default {
     }
   }
 }
-
 </style>

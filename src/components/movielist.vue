@@ -1,48 +1,46 @@
 <template>
   <div class="movielist">
     <div class="movie-item" v-for="item in movie" :key="item.id">
-      <img :src="item.img" alt="" />
-      <div class="content">
-        <div class="name">{{ item.name }}</div>
-        <div class="score">{{ item.score }}</div>
-        <p class="director">{{ item.director }}</p>
-        <p class="actor">{{ item.actor }}</p>
-        <div class="labels">
-          <div
-            v-for="lab in item.labels"
-            class="label-item"
-            :class="lab.act"
-            :key="lab.id"
-          >
-            {{ lab.text }}
+      <router-link
+        class="router-link"
+        :to="{ name: 'detail', params: { info: item } }"
+      >
+        <img :src="item.img" alt="" />
+        <div class="content">
+          <div class="name">{{ item.name }}</div>
+          <div class="score">{{ item.score }}</div>
+          <p class="director">{{ item.director }}</p>
+          <p class="actor">{{ item.actor }}</p>
+          <div class="labels">
+            <div
+              v-for="lab in item.labels"
+              class="label-item"
+              :class="lab.act"
+              :key="lab.id"
+            >
+              {{ lab.text }}
+            </div>
+          </div>
+          <div class="ticket" :class="item.ticketcolor">
+            {{ item.ticket }}
           </div>
         </div>
-        <div class="ticket" :class="item.ticketcolor">
-          {{ item.ticket }}
-        </div>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 export default {
   name: "movielist",
   data() {
     return {};
   },
-  //   props: {
-  //     movielist: String
-  //   },
-  computed: {
-    ...mapState({
-      movie(state) {
-        return state.hotmovie.hotmovie;
-      }
-    })
+  props: {
+    movie: Array
   },
-  mounted() {}
+  mounted() {},
+  created() {}
 };
 </script>
 
@@ -51,21 +49,28 @@ export default {
   margin-top: 10px;
   padding-left: 20px;
   padding-bottom: 100px;
+
   .movie-item {
     display: flex;
     height: 170px;
     width: 335px;
-
+    .router-link {
+      display: flex;
+      height: 170px;
+      width: 335px;
+    }
     img {
+      float: left;
       height: 170px;
       width: 119px;
     }
     .content {
       position: relative;
       box-sizing: border-box;
+      float: left;
       padding: 10px;
-      margin-left: -7px;
-      margin-top: 15px;
+      // margin-left: -7px;
+      // margin-top: 15px;
       height: 144px;
       width: 223px;
       background: rgba(51, 54, 61, 1);
