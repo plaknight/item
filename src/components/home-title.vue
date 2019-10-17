@@ -11,7 +11,7 @@
 export default {
   data () {
     return {
-      right:require('@/assets/movie-imgs/home/right.png') 
+      right:require('@/assets/movie-imgs/home/右 箭头.png') 
     }
   },
   name: 'titleP',

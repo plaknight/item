@@ -8,7 +8,7 @@ export default {
   name: "",
   data() {
     return {
-       search: require('@/assets/movie-imgs/home/search.png')
+       search: require('@/assets/movie-imgs/home/搜索.png')
     };
   },
   methods: {

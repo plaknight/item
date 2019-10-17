@@ -1,21 +1,31 @@
 <template>
   <div class="home">
-    <router-view></router-view>
-   <div class="betterScroll" >    <!-- v-show="$route.meta.isShow" -->
+    <transition
+      enter-active-class="animated slideInRight faster"
+      leave-active-class="animated slideOutRight faster"
+      mode="out-in"
+    >
+      <router-view></router-view>
+    </transition>
+    <div class="betterScroll" v-show="$route.meta.isShow">
       <!-- betterScroll 插件 -->
       <!-- 头部开始 -->
       <div class="header">
         <div class="header-c">
           <div class="adress" @click="jumpCity">
-            {{ address }}
+            <p>{{ address }}</p>
             <img :src="imgs.down" alt />
           </div>
           <div class="input">
             <img :src="imgs.search" alt />
-            <input type="text" placeholder="搜影片、影院、影人" />
+            <input
+              type="text"
+              placeholder="搜影片、影院、影人"
+              @click="fucusJump($event)"
+            />
           </div>
           <div class="clock">
-            <img :src="imgs.clock" alt />
+            <img :src="imgs.clock" alt @click="jumpSignIn" />
           </div>
         </div>
       </div>
@@ -71,68 +81,67 @@
 import titleP from "@/components/home-title.vue";
 // @ is an alias to /src
 //图片
+import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
+
 import Swiper from "swiper";
 import "swiper/css/swiper.css";
 export default {
   name: "home",
-
   watch: {
-    "$route.path"(newVal , old) {
-        if(newVal === "/home"){
-          this.address = this.$route.query.address
-        }
-        console.log(this.$route)
-    }
+    // "$route.path"(newVal, old) {
+    //   if (newVal === "/home") {
+    //     this.address = this.$route.query.address;
+    //   }
+    // }
+  },
+  computed: {
+    ...mapGetters({
+      address: "city/getAddress"
+    })
   },
   methods: {
+    ...mapMutations({
+      changeAddress: "city/changeAddress",
+      initPosition: "city/initPosition"
+    }),
+
+    //跳转到签到页面
+    jumpSignIn() {
+      this.$router.push("/home/signIn");
+    },
+    //跳转到城市页面
     jumpCity() {
       this.$router.push("/home/city");
     },
-
-    //百度地图定位
-
-    initPosition() {
-      var _this = this;
-      var map = new BMap.Map("allmap");
-      var geolocation = new BMap.Geolocation();
-      geolocation.getCurrentPosition(
-        function(r) {
-          if (this.getStatus() == BMAP_STATUS_SUCCESS) {
-            var geoc = new BMap.Geocoder();
-            var point = new BMap.Point(r.point.lng, r.point.lat);
-
-            //地址逆解析
-            geoc.getLocation(point, function(rs) {
-              var addComp = rs.addressComponents;
-              _this.address = addComp.city.slice(0, addComp.city.length - 1);
-              // if (!_this.historyCity.some(el => el === addComp.city)) {
-              //   _this.historyCity.push(addComp.city);
-              // }
-            });
-          } else {
-            alert("failed" + this.getStatus());
-          }
-        },
-        { enableHighAccuracy: true }
-      );
+    //搜索框聚焦跳转
+    fucusJump(e) {
+      this.$router
+        .push({
+          path: "/home/search"
+          // query: {
+          //   address: this.address
+          // }
+        })
+        .catch(err => {});
     }
+    //百度地图定位
   },
   data() {
     return {
       imgs: {
-        down: require("@/assets/movie-imgs/home/down.png"),
-        search: require("@/assets/movie-imgs/home/search.png"),
-        clock: require("@/assets/movie-imgs/home/card.png"),
+        down: require("@/assets/movie-imgs/home/下 箭头.png"),
+        search: require("@/assets/movie-imgs/home/搜索.png"),
+        clock: require("@/assets/movie-imgs/home/打卡.png"),
         swiperImg: [
-          require("@/assets/movie-imgs/home/swiper1.png"),
-          require("@/assets/movie-imgs/home/swiper2.png"),
-          require("@/assets/movie-imgs/home/swiper3.png")
+          require("@/assets/movie-imgs/home/大鱼海棠.png"),
+          require("@/assets/movie-imgs/home/大鱼海棠复制 4.png"),
+          require("@/assets/movie-imgs/home/大鱼海棠.png")
         ]
       },
       hotList: [], // 正在热映
       futureList: [],
-      heraldList: [],
-      address: ""
+      heraldList: []
+      // address: ""
       // cityShow: true
     };
   },
@@ -230,14 +239,18 @@ export default {
       width: 50px;
       height: 14px;
       font-size: 14px;
-      font-family: PingFangSC-Regular, PingFangSC;
       font-weight: 400;
       color: #b1b2b3;
       line-height: 14px;
-      img {
-        position: absolute;
-        right: 5px;
-        bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      p {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        width: 34px;
+        text-align: center;
       }
     }
     .input {

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
+import Home from '@/views/home/index.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -17,13 +17,26 @@ export default new Router({
       children: [
         {
           path: 'city',
-          component:()=> import ('@/views/home/city/index.vue'),
+          component: () => import('@/views/home/city/index.vue'),
           meta: {
             isShow: false
           }
         },
+        {
+          path: 'signIn',
+          component: () => import('@/views/home/signIn/index.vue'),
+          meta: {
+            isShow: false
+          }
+        },
+        {
+          path: 'search',
+          component: () => import('@/views/home/search/index.vue'),
+          meta: {
+            isShow: false
+          }
+        }
       ]
-
     }, 
     {
       path: '/movie',
@@ -35,21 +48,24 @@ export default new Router({
        },
       children:[
         {
-          path:'future',
-          component:()=> import ('../views/movie/movie-future/index.vue'),
-          meta:{
-            isShow:true
+          path: 'future',
+          component: () => import('../views/movie/movie-future/index.vue'),
+          meta: {
+            isShow: true
           }
         },
         {
-          path:'hots',
-          component:()=> import ('../views/movie/movie-hots/index.vue'),
-          meta:{
-            isShow:true
+          path: 'hots',
+          component: () => import('../views/movie/movie-hots/index.vue'),
+          meta: {
+            isShow: true
           }
         }
-      ]
-    }, 
+      ],
+      meta: {
+        isShow: true
+      }
+    },
     {
       path: '/cinema',
       name: 'cinema',
@@ -93,9 +109,9 @@ export default new Router({
       }
     },   // 临时选座路由
     {
-      path:'*',
-      redirect: '/home'
+      path: '*',
+      redirect: '/login'
     }
-    
+
   ]
 })
