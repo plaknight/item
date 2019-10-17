@@ -10,19 +10,29 @@ export default new Router({
     {
       path: '/home',
       name: 'home',
-      component: () => import(/* webpackChunkName: "about" */ '../views/home/index.vue'),
-       meta:{
-         isShow:true
-       }
+      component: Home,
+      meta: {
+        isShow: true
+      },
+      children: [
+        {
+          path: 'city',
+          component:()=> import ('@/views/home/city/index.vue'),
+          meta: {
+            isShow: false
+          }
+        },
+      ]
+
     }, 
     {
       path: '/movie',
       name: 'movie',
       component: () => import(/* webpackChunkName: "about" */ '../views/movie/index.vue'),
       redirect: 'movie/hots',
-      meta:{
+      meta: { 
         isShow:true
-      },
+       },
       children:[
         {
           path:'future',
@@ -44,10 +54,28 @@ export default new Router({
       path: '/cinema',
       name: 'cinema',
       component: () => import(/* webpackChunkName: "about" */ '../views/cinema/index.vue'),
-      meta:{
+
+      meta: { 
         isShow:true
-      }
+       },
     }, 
+    {
+      path:'/cinemaInfo',
+      name: 'cinemaInfo',
+      component: () => import(/* webpackChunkName: "cinemaInfo" */ '../views/cinema/cinemaInfo/index.vue'),
+      meta: { 
+        isShow:false
+       },
+    },
+    {
+      path: '/nearbyMap',
+      name: 'nearbyMap',
+      component: () => import(/* webpackChunkName: "nearbyMap" */ '../views/nearbyMap/index.vue'),
+      meta: { 
+        isShow:false
+       },
+      },
+ 
     {
       path: '/my',
       name: 'my',
@@ -64,7 +92,6 @@ export default new Router({
         isShow:true
       }
     },   // 临时选座路由
-
     {
       path:'*',
       redirect: '/home'

@@ -1,8 +1,15 @@
 <template>
   <div id="app">
     <router-view />
+<<<<<<< HEAD
     <div class="nav"  >
   <tabbar  v-show="$route.meta.isShow" ></tabbar>      <!--  -->
+=======
+
+    <div class="nav" v-if="$route.meta.isShow">
+  <tabbar></tabbar>
+
+>>>>>>> a0e65f2c362b842b316290cfe47ad21898219de4
     </div>
   
   </div>
