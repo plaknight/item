@@ -112,40 +112,7 @@ export default new Router({
       meta: {
         isShow: false,
       },
-    },
-    {
-      path: '/my',
-      name: 'my',
-      component: () =>
-          import( /* webpackChunkName: "about" */ '@/views/my/index.vue'),
-      meta: {
-          isShow: true
-      },
-      redirect: '/my/index/index',
-      children: [
-          {
-              path: 'coupon', name: 'coupon', component: () =>
-                  import( /* webpackChunkName: "about" */ '@/views/my/coupon/index.vue'),
-              meta: {
-                  isShow: true
-              },
-          },
-          {
-              path: 'personal', name: 'personal', component: () =>
-                  import( /* webpackChunkName: "about" */ '@/views/my/personal/index.vue'),
-              meta: {
-                  isShow: true
-              },
-          },
-          {
-              path: 'index/index', name: 'index', component: () =>
-                  import( /* webpackChunkName: "about" */ '@/views/my/index/index.vue'),
-              meta: {
-                  isShow: true
-              },
-          }
-      ]
-  },
+    }
 
     ]
   },
@@ -182,12 +149,44 @@ export default new Router({
     path: '/my',
     name: 'my',
     component: () =>
-      import( /* webpackChunkName: "about" */ '../views/my/index.vue'),
+        import( /* webpackChunkName: "about" */ '@/views/my/index.vue'),
     meta: {
-      isShow: true
+        isShow: true
+    },
+    redirect: '/my/index/index',
+    children: [
+        {
+            path: 'coupon', name: 'coupon', component: () =>
+                import( /* webpackChunkName: "about" */ '@/views/my/coupon/index.vue'),
+            meta: {
+                isShow: true
+            },
+        },
+        {
+            path: 'personal', name: 'personal', component: () =>
+                import( /* webpackChunkName: "about" */ '@/views/my/personal/index.vue'),
+            meta: {
+                isShow: true
+            },
+        },
+        {
+            path: 'index/index', name: 'index', component: () =>
+                import( /* webpackChunkName: "about" */ '@/views/my/index/index.vue'),
+            meta: {
+                isShow: true
+            },
+        }
+    ]
+},
+  {
+    path: '/login',
+    name: 'login',
+    component: () =>
+      import( /* webpackChunkName: "about" */ '../views/login/index.vue'),
+    meta: {
+      isShow: false
     }
   },
-
   {
     path: '/ticket',
     name: 'ticket',

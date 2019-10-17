@@ -150,7 +150,7 @@ export default {
   },
   mounted: function() {
     //默认百度插件执行
-    console.log(1);
+    // console.log(1);
     this.initPosition();
 
     //betterSrcoll插件
