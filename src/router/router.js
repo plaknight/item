@@ -49,7 +49,7 @@ export default new Router({
                     path: 'future',
                     component: () => import('../views/movie/movie-future/index.vue'),
                     meta: {
-                        isShow: false
+                        isShow: true
                     },
 
                 },
@@ -57,7 +57,7 @@ export default new Router({
                     path: 'hots',
                     component: () => import('../views/movie/movie-hots/index.vue'),
                     meta: {
-                        isShow: false
+                        isShow: true
                     },
                 },
                 {

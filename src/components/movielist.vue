@@ -48,8 +48,7 @@ export default {
 .movielist {
   margin-top: 10px;
   padding-left: 20px;
-  padding-bottom: 100px;
-
+  padding-bottom: 30px;
   .movie-item {
     display: flex;
     height: 170px;
@@ -69,8 +68,8 @@ export default {
       box-sizing: border-box;
       float: left;
       padding: 10px;
-      // margin-left: -7px;
-      // margin-top: 15px;
+      margin-left: -7px;
+      margin-top: 15px;
       height: 144px;
       width: 223px;
       background: rgba(51, 54, 61, 1);
