@@ -1,6 +1,6 @@
 <template>
   <div class="movie">
-    <div class="header" v-if="!$route.meta.isShow">
+    <div class="header" v-if="$route.meta.isShow">
       <div class="header-c">
         <div class="adress">
           郑州
@@ -23,15 +23,14 @@
     <router-view />
   </div>
 </template>
-
 <script>
 export default {
   name: "",
   data() {
     return {
       imgs: {
-        down: require("@/assets/movie-imgs/首页_slices/下 箭头.png"),
-        search: require("@/assets/movie-imgs/首页_slices/搜索.png")
+        down: require("@/assets/movie-imgs/home/下 箭头.png"),
+        search: require("@/assets/movie-imgs/home/搜索.png")
       }
     };
   }

@@ -2,7 +2,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Mock from 'mockjs'
 import cinema from './modules/cinema.js'
-import movielist from "./modules/movielist.js"
+import city from './modules/city.js'
+import hotmovie from './modules/movielist.js'
+import cinemaInfo from './modules/cinemaInfo.js'
 Vue.use(Vuex)
 var HotList = []
 for (var i = 0; i < 10; i++) {
@@ -46,15 +48,32 @@ export default new Vuex.Store({
         hotList: HotList,
         futureList: futureList,
         heraldList: heraldList,
-        cinemaList: cinemaList
+        cinemaList: cinemaList,
+        bought: [{
+                id: 11,
+                row: 1,
+                li: 1
+            },
+            {
+                id: 55,
+                row: 5,
+                li: 5
+            }
+        ],
     },
     mutations: {
-
+        boughtList(state, val) {
+            state.bought = state.bought.concat(val)
+            console.log(state.bought)
+        }
     },
     actions: {
 
     },
     modules: {
-        hotmovie: movielist
+        cinema,
+        city,
+        cinemaInfo,
+        hotmovie
     }
 })

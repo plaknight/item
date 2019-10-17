@@ -1,8 +1,10 @@
 <template>
   <div id="app">
-    <router-view />
-    <div class="nav" v-if="!$route.meta.isShow">
-      <tabbar></tabbar>
+    <transition enter-active-class="animated slideInRight faster" mode="out-in">
+      <router-view />
+    </transition>
+    <div class="nav">
+      <tabbar v-show="$route.meta.isShow"></tabbar>
     </div>
   </div>
 </template>
@@ -13,21 +15,29 @@ export default {
   data() {
     return {};
   },
+  methods: {
+    get() {
+      // console.log(this.)
+    }
+  },
+  created() {},
+  mounted: function() {},
+
   components: {
     tabbar: tabbar
   }
 };
 </script>
-<style lang="scss">
+<style lang="scss" >
 html,
 body {
   background: #23262d;
   width: 100%;
-  height: auto;
+  height: 100%;
 }
 #app {
   width: 100%;
-  overflow: hidden;
+  height: 100%;
 }
 a {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -37,3 +47,4 @@ a {
   height: 70px;
 }
 </style>
+
