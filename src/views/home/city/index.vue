@@ -107,7 +107,7 @@ export default {
       search: require("@/assets/movie-imgs/首页_slices/搜索.png"),
       searchCity: "",
       searchCityList: [],
-      position: require("@/assets/movie-imgs/定位/position.png")
+      // position: require("@/assets/movie-imgs/定位/position.png")
     };
   },
   watch: {
