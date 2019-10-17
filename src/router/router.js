@@ -36,12 +36,27 @@ export default new Router({
     {
       path: '/my',
       name: 'my',
-      component: () => import(/* webpackChunkName: "about" */ '../views/my/index.vue')
+      component: () => import(/* webpackChunkName: "about" */ '../views/my/index.vue'),
+      redirect: 'my/mys',
+      children:[
+        {
+          path:'coupon',
+          component:()=> import ('../views/my/coupon/index.vue')
+        },
+        {
+          path:'mys',
+          component:()=> import ('../views/my/index/index.vue')
+        }
+      ]
     },
     {
-      path:'*',
-      redirect: '/home'
-    }
-    
+      path: '/personal',
+      name: 'personal',
+      component: () => import(/* webpackChunkName: "about" */ '../views/my/personal/index.vue')
+    }, 
+    // {
+    //   path:'*',
+    //   redirect: '/home'
+    // }
   ]
 })

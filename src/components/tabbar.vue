@@ -5,7 +5,7 @@
       <router-link class="router-link movie" to="/movie"></router-link>
       <router-link class="router-link ticket" to="/ticket"></router-link>
       <router-link class="router-link cinema" to="/cinema"></router-link>
-      <router-link class="router-link main" to="/main"></router-link>
+      <router-link class="router-link main" to="/my"></router-link>
     </div>
   </div>
 </template>
