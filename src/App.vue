@@ -42,6 +42,10 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 971c5f65dc520d2bf425f37b97339437e9429a21
 }
 #app {
   width: 100%;
