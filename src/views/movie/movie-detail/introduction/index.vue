@@ -127,7 +127,7 @@ export default {
     font-size: 12px;
     font-family: PingFangSC-Regular, PingFangSC;
     font-weight: 400;
-    color: rgba(255, 255, 255, 1);
+    color: #5a5d62;
     line-height: 18px;
 
     white-space: wrap;
@@ -159,7 +159,7 @@ export default {
           font-size: 14px;
           font-family: PingFangSC-Regular, PingFangSC;
           font-weight: 400;
-          color: rgba(255, 255, 255, 1);
+          color: #b9babc;
           line-height: 14px;
         }
         .play {
@@ -169,7 +169,7 @@ export default {
           font-size: 12px;
           font-family: PingFangSC-Regular, PingFangSC;
           font-weight: 400;
-          color: rgba(255, 255, 255, 1);
+          color: #64676b;
           line-height: 12px;
         }
       }
@@ -203,7 +203,7 @@ export default {
           font-size: 12px;
           font-family: PingFangSC-Regular, PingFangSC;
           font-weight: 400;
-          color: rgba(255, 255, 255, 1);
+          color: #bcbdbf;
           line-height: 18px;
         }
       }

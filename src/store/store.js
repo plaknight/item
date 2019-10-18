@@ -27,6 +27,7 @@ var heraldList = []
 for (var i = 0; i < 5; i++) {
     heraldList.push(Mock.mock({
         'id': Mock.Random.guid(),
+
         'img': Mock.Random.dataImage('295x160'),
         'text': Mock.Random.ctitle(30),
     }))

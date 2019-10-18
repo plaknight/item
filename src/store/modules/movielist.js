@@ -301,6 +301,15 @@ const movielist = {
                 content: "Luke， you’re going to find that many of the truthswe cling to depend greatly on our own point of view.”A long time ago in a galaxy far， far …"
             }
         ],
+        heraldmovie: [{
+            id: Random.guid(),
+            img: require("@/assets/movie-imgs/home/swiper1.png"),
+            text: "《大护法》是一部能够体现反专制、反乌托邦式的寓言动画…",
+        }, {
+            id: Random.guid(),
+            img: require("@/assets/movie-imgs/home/电影截图复制.png"),
+            text: "这个视频好像没有标题",
+        }]
 
     },
     mutations: {

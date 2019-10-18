@@ -47,6 +47,7 @@ export default new Router({
 
             children: [{
                     path: 'future',
+                    name: 'future',
                     component: () => import('../views/movie/movie-future/index.vue'),
                     meta: {
                         isShow: true
@@ -55,6 +56,7 @@ export default new Router({
                 },
                 {
                     path: 'hots',
+                    name: 'hots',
                     component: () => import('../views/movie/movie-hots/index.vue'),
                     meta: {
                         isShow: true
