@@ -42,6 +42,8 @@ body {
   background: #23262d;
   width: 100%;
   height: 100%;
+  overflow: hidden;
+
 }
 #app {
   width: 100%;

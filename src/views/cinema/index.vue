@@ -1,7 +1,8 @@
 <template>
   <div class="cinema">
-    <div class="wrapper">
+    <div class="betterScroll">
       <div class="content">
+
         <div class="header">
           <div class="header-c center">
             <div class="adress">
@@ -66,7 +67,7 @@
       </div>
     </div>
     <!-- 这里可以放一些其它的 DOM，但不会影响滚动 -->
-    <div id="allmap"></div>
+      <div id="allmap"></div>    
   </div>
 </template>
 
@@ -135,6 +136,10 @@ export default {
         this.initPosition();
       }
     });
+    let bs = new this.BScroll(".cinema", {
+      // ...... 详见配置项
+      click: true
+    });
   }
 };
 </script>
@@ -144,9 +149,8 @@ export default {
   width: 100%;
   height: 100%;
   font-family: PingFangSC-Regular, PingFangSC;
-  .wrapper {
-    width: 100%;
-    height: 100%;
+  .betterScroll {
+    padding-bottom: 90px;
     .content {
       width: 100%;
       padding-bottom: 35px;
