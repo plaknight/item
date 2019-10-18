@@ -72,7 +72,7 @@
 
 <script>
 import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
-import { Dialog } from "vant";
+import { Toast } from "vant";
 export default {
   name: "cinema",
   data() {
@@ -82,7 +82,7 @@ export default {
         search: require("@/assets/movie-imgs/首页_slices/搜索.png"),
         position: require("@/assets/movie-imgs/cinema/定位@2x.png")
       },
-      ifPosition:false,
+      ifPosition: false
     };
   },
   computed: {
@@ -106,54 +106,36 @@ export default {
       initPosition: "cinema/initPosition"
     }),
     toMap() {
-      this.$router.push({name:'nearbyMap'});
-      var obj = {
-        pointLat:this.pointLat,
-        pointLng:this.pointLng,
-        cityName:this.cityName
-      }
-      window.localStorage.setItem('mapInfo',JSON.stringify(obj))
-      
+      this.$router.push({ name: "nearbyMap" });
     },
     toCinemaInfo(val) {
       var index = this.cinemaInfo.findIndex(ele => ele.id == val);
       localStorage.setItem("cinemaObj", JSON.stringify(this.cinemaInfo[index]));
       this.$router.push({ name: "cinemaInfo" });
     },
-    newPosition(){
-        Dialog.confirm({
-          title: "定位",
-          message: "是否允许获取您的位置信息"
-        })
-        .then(() => {
+    newPosition() {
+      Toast.loading({
+        mask: true,
+        duration: 600,
+        message: "更新定位信息",
+        onClose: () => {
           this.ifPosition = true;
           this.initPosition();
-          localStorage.setItem('ifPosition','1')
-        })
-        .catch(() => {
-
-        });
+        }
+      });
     }
   },
-  created() {
-       if(localStorage.getItem('ifPosition')){
-          this.ifPosition = true
-       }else{
-            Dialog.confirm({
-              title: "定位",
-              message: "是否允许获取您的位置信息"
-            })
-            .then(() => {
-              this.ifPosition = true
-              this.initPosition();
-              localStorage.setItem('ifPosition','1')
-            })
-            .catch(() => {
-              // this.ifPosition = false
-            });
-        }
-       }
-     
+  mounted() {
+    Toast.loading({
+      mask: true,
+      duration: 600,
+      message: "更新定位信息",
+      onClose: () => {
+        this.ifPosition = true;
+        this.initPosition();
+      }
+    });
+  }
 };
 </script>
 
