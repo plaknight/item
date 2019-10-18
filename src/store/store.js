@@ -5,6 +5,7 @@ import cinema from './modules/cinema.js'
 import city from './modules/city.js'
 import hotmovie from './modules/movielist.js'
 import cinemaInfo from './modules/cinemaInfo.js'
+import ticket from './modules/ticket.js'
 Vue.use(Vuex)
 var HotList = []
 for (var i = 0; i < 10; i++) {
@@ -75,6 +76,7 @@ export default new Vuex.Store({
         cinema,
         city,
         cinemaInfo,
-        hotmovie
+        hotmovie,
+        ticketData:ticket
     }
 })

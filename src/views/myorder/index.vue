@@ -8,37 +8,34 @@
       </div>
       <ul class="opt">
         <!-- 按钮选项 -->
-        <li>全部</li>
-        <li>待付款</li>
-        <li>待评价</li>
-        <li>退款</li>
+        <li  @click="changeid(item.id)" :class="{active:item.id==index}" v-for="item in btnlist" :key="item.id">{{item.name}}</li>
       </ul>
     </div>
     <div class="main">
-        <div class="filmTicket">
+        <div class="filmTicket" v-for="item in obj" :key="item.id">
             <p class="ticketTitle">
-                <span>万达国际影城</span>
+                <span>{{item.cinema}}</span>
                 <i></i>
-                <span>等待退款</span>
+                <span>{{stateMsg}}</span>
             </p>
             <div class="ticketMain">
-                <img src="../../assets/movie-imgs/myorder/movie.png" alt="">
+                <img :src="item.img" alt="">
                 <div class="filmMsg">
                     <p>
-                        <span>星空</span>
-                        <span>1张</span>
+                        <span>{{item.filmname}}</span>
+                        <span>{{item.ticketNum}}张</span>
                     </p>
                     <p>
-                        <span>05月17号&ensp;</span>
-                        <span>17：00</span>
+                        <span>{{item.date}}&ensp;</span>
+                        <span>{{item.time}}</span>
                     </p>
                     <p>
-                        <span>5号厅&ensp;</span>
-                        <span>5排14座</span>
+                        <span>{{item.position}}&ensp;</span>
+                        <span>{{item.seat}}</span>
                     </p>
                 </div>
                 <div class="price">
-                    <span>总价：70元</span>
+                    <span>总价：{{item.price}}元</span>
                 </div>
             </div>
         </div>
@@ -47,7 +44,81 @@
 </template>
 
 <script>
-export default {};
+import { mapState } from "vuex"
+export default {
+data(){
+  return{
+    id:'',
+    stateMsg:'',
+    index:0,
+    isActive:false,
+    btnlist:[
+      {
+        id:0,
+        name:'全部'
+      },
+      {
+        id:1,
+        name:'待付款'
+      },
+      {
+        id:2,
+        name:'待评价'
+      },{
+        id:3,
+        name:'退款'
+      }
+    ]
+  }
+},
+computed:{
+  ...mapState({
+    obj:function(state){
+      if(this.id ==0){
+        return state.ticketData.ticketdate  //传过来为0 代表是全部数据
+      }else{
+      return state.ticketData.ticketdate.filter(ele=>ele.status ==this.id) //筛选出对应状态的数据
+      }
+    }
+  }
+  )
+},
+
+methods:{
+    judgeStatus(){
+    switch(this.id) {
+     case 1:
+        this.stateMsg="待付款",
+        this.isActive = "true"
+        break;
+     case 2:
+        this.stateMsg="待评价"
+        this.isActive = "true"
+        break;
+      case 3:
+        this.stateMsg="退款"
+        this.isActive = "true"
+        break;
+     default:  
+        this.stateMsg ='未消费'   //这一步没用
+        this.isActive = "false"
+} 
+    },
+    changeid(num){ //点击事件切换列表
+      this.id = num;
+      this.index = num;
+    }
+},
+created(){
+  this.id = this.$route.params.ids
+  this.index = this.$route.params.ids
+  console.log(this.id)
+  console.log(this.obj)
+  this.judgeStatus();  //将用数字表示的状态变成文字
+}
+
+
+}
 </script>
 
 <style lang="scss" scoped>
@@ -100,7 +171,7 @@ export default {};
         font-size: 14px;
         box-sizing: border-box;
       }
-     li:hover{
+     li.active{
         border-bottom: 3px solid #f9c34a;
         color:#F9C34A;
      }
@@ -114,6 +185,7 @@ export default {};
             color:#fff;
             box-sizing:border-box;
             padding: 14px;
+            margin-bottom: 10px;
             .ticketTitle {
                 @include titleCenter();
                 margin-bottom: 10px;

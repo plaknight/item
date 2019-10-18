@@ -99,26 +99,28 @@ export default new Router({
                             },
 
                         },
-                        {
-                            name: "boxoffice",
-                            path: 'boxoffice',
-                            component: () => import('../views/movie/boxoffice/index.vue'),
-                            meta: {
-                                isShow: false,
-                            },
-                        },
-                        {
-                            name: "actor",
-                            path: 'actor',
-                            component: () => import('../views/movie/actor/index.vue'),
-                            meta: {
-                                isShow: false,
-                            },
 
-                        }
 
-                    ]
+                    ],
+
                 },
+                {
+                    name: "boxoffice",
+                    path: 'boxoffice',
+                    component: () => import('../views/movie/boxoffice/index.vue'),
+                    meta: {
+                        isShow: false,
+                    },
+                },
+                {
+                    name: "actor",
+                    path: 'actor',
+                    component: () => import('../views/movie/actor/index.vue'),
+                    meta: {
+                        isShow: false,
+                    },
+
+                }
             ]
         },
         {
@@ -207,19 +209,9 @@ export default new Router({
             }
         },
         {
-            path: '/ticket',
-            name: 'ticket',
+            path: '/myorder/:ids', //订单页面
             component: () =>
-                import( /* webpackChunkName: "about" */ '../views/ticket/index.vue'),
-            meta: {
-                isShow: true
-            }
-        }, // 临时选座路由
-        {
-            path: '/order',
-            name: 'order',
-            component: () =>
-                import( /* webpackChunkName: "about" */ '../views/order/index.vue'),
+                import( /* webpackChunkName: "myorder" */ '../views/myorder/index.vue'),
             meta: {
                 isShow: false
             }
@@ -243,9 +235,35 @@ export default new Router({
             }
         },
         {
+            path: '/login',
+            name: 'login',
+            component: () =>
+                import( /* webpackChunkName: "about" */ '../views/login/index.vue'),
+            meta: {
+                isShow: false
+            }
+        },
+        {
+            path: '/newcenter',
+            name: '/newcenter',
+            component: () =>
+                import( /* webpackChunkName: "about" */ '../views/newcenter/index.vue'),
+            meta: {
+                isShow: false
+            }
+        },
+        {
+            path: '/news',
+            name: '/news',
+            component: () =>
+                import( /* webpackChunkName: "news" */ '../views/news/index.vue'),
+            meta: {
+                isShow: false
+            }
+        },
+        {
             path: '*',
             redirect: '/home'
         }
-
     ]
 })

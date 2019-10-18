@@ -6,9 +6,11 @@
 
 <script>
 export default {
-  name: "",
-  data() {
-    return {};
+  name: '',
+  data() { 
+    return {
+   
+    }
   }
 };
 </script>
