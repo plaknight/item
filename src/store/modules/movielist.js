@@ -12,6 +12,7 @@ const movielist = {
                 director: "导演：赞恩.阿尔.拉菲亚",
                 // 演员
                 actor: "主演：赞恩.阿尔.拉菲亚",
+                status:1,
                 labels: [{
                         id: Random.guid(),
                         text: "今日最热",
@@ -41,6 +42,7 @@ const movielist = {
                 director: "导演：梁旋 季冠霖",
                 // 演员
                 actor: "105分钟/动画/奇幻",
+                status:2,
                 ticket: "预售",
                 ticketcolor: "purple",
                 actorinfo: [{ id: "1", name: "季冠霖", play: "配音", img: require("@/assets/movie-imgs/actorinfo/dy_act1.jpg") },
@@ -59,6 +61,7 @@ const movielist = {
                 director: "导演：李俊赫",
                 // 演员
                 actor: "主演：苏志燮 孙艺珍",
+                status:3,
                 labels: [{
                     id: Random.guid(),
                     text: "口碑最佳",
@@ -82,6 +85,7 @@ const movielist = {
                 director: "导演：盖尔.曼库索",
                 // 演员
                 actor: "主演：贾斯",
+                status:4,
                 labels: [{
                         id: Random.guid(),
                         text: "今日最热",
@@ -112,7 +116,7 @@ const movielist = {
                 director: "导演：赞恩.阿尔.拉菲亚",
                 // 演员
                 actor: "主演：赞恩.阿尔.拉菲亚",
-
+                status:2,
                 ticket: "预售",
                 ticketcolor: "purple",
                 actorinfo: [{ id: "1", name: "凯拉·奈特莉", play: "饰伊丽莎…", img: require("@/assets/movie-imgs/actorinfo/CRACKS_act1.png") },
@@ -132,6 +136,7 @@ const movielist = {
                 director: "导演：梁旋 季冠霖",
                 // 演员
                 actor: "105分钟/动画/奇幻",
+                status:3,
                 ticket: "预售",
                 ticketcolor: "purple",
                 actorinfo: [{ id: "1", name: "季冠霖", play: "配音", img: require("@/assets/movie-imgs/actorinfo/dy_act1.jpg") },
@@ -150,7 +155,8 @@ const movielist = {
                 //   导演
                 director: "导演：李俊赫",
                 // 演员
-
+                actor: "105分钟/动画/奇幻",
+                status:4,
                 ticket: "预售",
                 ticketcolor: "purple",
                 actorinfo: [{ id: "1", name: "苏志燮", play: "饰宇镇", img: require("@/assets/movie-imgs/actorinfo/xz_act1.webp") },
@@ -170,7 +176,7 @@ const movielist = {
                 director: "导演：盖尔.曼库索",
                 // 演员
                 actor: "主演：贾斯",
-
+                status:1,
                 ticket: "预售",
                 ticketcolor: "purple",
                 actorinfo: [{ id: "1", name: "马克·哈米尔", play: "饰卢克·天行者", img: require("@/assets/movie-imgs/actorinfo/xq_act1.jpg") },
@@ -190,7 +196,7 @@ const movielist = {
                 director: "导演：盖尔.曼库索",
                 // 演员
                 actor: "主演：贾斯",
-
+                status:2,
                 ticket: "预售",
                 ticketcolor: "purple",
                 actorinfo: [{ id: "1", name: "马克·哈米尔", play: "饰卢克·天行者", img: require("@/assets/movie-imgs/actorinfo/xq_act1.jpg") },
@@ -210,7 +216,7 @@ const movielist = {
                 director: "导演：盖尔.曼库索",
                 // 演员
                 actor: "主演：贾斯",
-
+                status:3,
                 ticket: "预售",
                 ticketcolor: "purple",
                 actorinfo: [{ id: "1", name: "马克·哈米尔", play: "饰卢克·天行者", img: require("@/assets/movie-imgs/actorinfo/xq_act1.jpg") },
@@ -230,7 +236,7 @@ const movielist = {
                 director: "导演：盖尔.曼库索",
                 // 演员
                 actor: "主演：贾斯",
-
+                status:1,
                 ticket: "预售",
                 ticketcolor: "purple",
                 actorinfo: [{ id: "1", name: "马克·哈米尔", play: "饰卢克·天行者", img: require("@/assets/movie-imgs/actorinfo/xq_act1.jpg") },
@@ -250,7 +256,7 @@ const movielist = {
                 director: "导演：盖尔.曼库索",
                 // 演员
                 actor: "主演：贾斯",
-
+                status:1,
                 ticket: "预售",
                 ticketcolor: "purple",
                 actorinfo: [{ id: "1", name: "马克·哈米尔", play: "饰卢克·天行者", img: require("@/assets/movie-imgs/actorinfo/xq_act1.jpg") },
@@ -270,7 +276,7 @@ const movielist = {
                 director: "导演：盖尔.曼库索",
                 // 演员
                 actor: "主演：贾斯",
-
+                status:2,
                 ticket: "预售",
                 ticketcolor: "purple",
                 actorinfo: [{ id: "1", name: "马克·哈米尔", play: "饰卢克·天行者", img: require("@/assets/movie-imgs/actorinfo/xq_act1.jpg") },
@@ -290,7 +296,7 @@ const movielist = {
                 director: "导演：盖尔.曼库索",
                 // 演员
                 actor: "主演：贾斯",
-
+                status:2,
                 ticket: "预售",
                 ticketcolor: "purple",
                 actorinfo: [{ id: "1", name: "马克·哈米尔", play: "饰卢克·天行者", img: require("@/assets/movie-imgs/actorinfo/xq_act1.jpg") },

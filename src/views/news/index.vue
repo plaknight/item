@@ -2,26 +2,26 @@
 <div>
     <div class="news">
     <div class="title">  
-          <div class="title-left">
-            <i></i>
+          <div class="title-left" @click="$router.go(-1)">
+            <i ></i>
            <img src="../../assets/movie-imgs/newcenter/head1.png" alt="">
            <span>Zeng Wen</span>
           </div>
         <div class="btn">.&nbsp;.&nbsp;.</div>
     </div>
     
-    <div class="main">
+    <div class="main" style="margin-bottom:70px">
     <div class="bubble" v-for="item in user" :key="item.id">
   <div class="comment" v-bind:class="[{ comment1: item.isActive }]">{{item.msg}}</div> 
         </div> 
     </div>
     </div>
 <div class="entering">
-    <input  type="text"   v-model="msg" />
+    <input  type="text"   v-model="msg" v-on:keyup.enter="sendMsg"   />
     <select name="public-choice" v-model="couponSelected" @change="getCouponSelected">                                        
     <option :value="coupon.id" :key="coupon.id" v-for="coupon in couponList" >{{coupon.name}}</option>                                    
     </select>
-    <div class="send" @click = "sendMsg">发送</div>
+    <div class="send" @click = "sendMsg"  >发送</div>
 </div>
 
 </div>
@@ -29,6 +29,8 @@
 
 <script>
 import Mock from "mockjs";
+import axios from "axios";
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 const Random = Mock.Random;
 export default {
     data(){
@@ -48,15 +50,6 @@ export default {
                     ],
             couponSelected: '',
             user:[
-                {
-            id: Random.guid(),
-            msg:"啊啊啊啊啊啊",
-            isActive:0
-            },
-            {
-            msg:"我擦擦擦擦擦",
-            isActive:1
-            },
             {
             msg:"水水水水水水",
             isActive:0
@@ -71,13 +64,13 @@ export default {
     },
     methods:{
         sendMsg(){
-            
+            this.init()
             var newMsg={
                  id: Random.guid(),
                  msg:this.msg,
                  isActive:this.isActive
             }
-           this.user.unshift(newMsg)
+           this.user.push(newMsg)
            this.msg="";
         },
         getCouponSelected(){
@@ -85,12 +78,47 @@ export default {
                         console.log(this.couponSelected)
                 this.isActive = this.couponSelected =='0'?false:true;
                 console.log(this.isActive)
+                
+            },
+               init(){
+                   axios({
+			url:'/api/openapi/api/v2',
+			method: 'post',
+			data: {
+                "reqType":0,
+                "perception": {
+                    "inputText": {
+                        "text": this.msg
+                    }
+                },
+                "userInfo": {
+                    "apiKey": "f349e24ecd19c5511664f50edd0d7b7b",
+                    "userId": "123"
+                }
+            },
+			// headers:{
+			// 	'Content-Type':'application/json'
+			// }		
+			})
+            .then((res)=>{
+                var newdata = res.data.results[0].values.text
+                console.log(res.data.results[0].values.text);
+                  var newMsg={
+                 id: Random.guid(),
+                 msg:newdata,
+                 isActive:true
             }
+           this.user.push(newMsg)
+                // this.list = res.data.data;
+            })
+               }  
     },
      created(){
 　　　　　　　　　　　　//如果没有这句代码，select中初始化会是空白的，默认选中就无法实现
                     this.couponSelected = this.couponList[0].id;
+                    
                 },
+                
 };
 </script>
 
@@ -147,6 +175,7 @@ export default {
   width: 335px;
   margin: 0 auto;
   .title {
+      z-index: 999;
       position: fixed;
     width: 100%;
     background: #33363D ; 

@@ -154,7 +154,15 @@ export default new Router({
                 isShow: true
             }
         },
-
+//订单路由
+        {
+            path:'/myorder/:ids',
+            component: () =>
+            import( /* webpackChunkName: "myorder" */ '../views/myorder/index.vue'),
+            meta: {
+                isShow: false
+            }
+        },
         {
             path: '/ticket',
             name: 'ticket',
@@ -194,7 +202,19 @@ export default new Router({
         {
             path: '*',
             redirect: '/home'
-        }
+        },
+        {
+          path: '/news',
+          name: 'news',
+          component: () =>
+              import( /* webpackChunkName: "about" */ '../views/news/index.vue'),
+      },
+      {
+        path: '/newcenter',
+        name: 'newcenter',
+        component: () =>
+            import( /* webpackChunkName: "newcenter" */ '../views/newcenter/index.vue'),
+    },
 
     ]
 })
