@@ -23,7 +23,7 @@
                   </div>
                   <span>45min</span>
                 </div>
-                <div class="look">查看</div>
+                <div class="look" @click='toCinemaInfo(item.id)'>查看</div>
               </div>
             </div>
           </swiper-slide>
@@ -74,6 +74,11 @@ export default {
     back() {
       this.$router.go(-1);
     },
+    toCinemaInfo(val){
+      var index = this.cinemaInfo.findIndex(ele => ele.id == val)
+      localStorage.setItem("cinemaObj", JSON.stringify(this.cinemaInfo[index]));
+      this.$router.push({ name: "cinemaInfo" });
+    },
     addMap() {
       // 百度地图API功能
       var map = new BMap.Map("mapDiv"); // 创建Map实例
@@ -95,7 +100,6 @@ export default {
           })
         }
       );
-
       var local = new BMap.LocalSearch(map, {
         renderOptions: { map: map }
       });
@@ -109,10 +113,11 @@ export default {
     this.addMap();
   },
   created() {
-    this.map.pointLat = this.$route.params.pointLat;
-    this.map.pointLng = this.$route.params.pointLng;
-    this.map.cityName = this.$route.params.cityName;
-  }
+    var mapInfo = JSON.parse(window.localStorage.getItem('mapInfo'))
+    this.map.pointLat = mapInfo.pointLat;
+    this.map.pointLng = mapInfo.pointLng;
+    this.map.cityName = mapInfo.cityName;
+  },
 };
 </script>
 

@@ -70,52 +70,55 @@ export default new Router({
                         isShow: false,
                     },
                     children: [{
-                        name: "introduction",
-                        path: 'introduction',
-                        component: () => import('../views/movie/movie-detail/introduction/index.vue'),
-                        meta: {
-                            isShow: false,
-                        },
-                    }, {
-                        path: 'evaluation',
-                        name: "evaluation",
-                        component: () => import('../views/movie/movie-detail/evaluation/index.vue'),
-                        meta: {
-                            isShow: false
-                        },
-                    }, {
-                        path: 'comment',
-                        name: "comment",
-                        component: () => import('../views/movie/movie-detail/comment/index.vue'),
-                        meta: {
-                            isShow: false,
-                        },
-                    }, {
-                        path: 'more',
-                        name: "more",
-                        component: () => import('../views/movie/movie-detail/more/index.vue'),
-                        meta: {
-                            isShow: false,
-                        },
-                    }]
-                },
-                {
-                    name: "boxoffice",
-                    path: 'boxoffice',
-                    component: () => import('../views/movie/boxoffice/index.vue'),
-                    meta: {
-                        isShow: false,
-                    },
-                },
-                {
-                    name: "actor",
-                    path: 'actor',
-                    component: () => import('../views/movie/actor/index.vue'),
-                    meta: {
-                        isShow: false,
-                    },
-                }
+                            name: "introduction",
+                            path: 'introduction',
+                            component: () => import('../views/movie/movie-detail/introduction/index.vue'),
+                            meta: {
+                                isShow: false,
+                            },
+                        }, {
+                            path: 'evaluation',
+                            name: "evaluation",
+                            component: () => import('../views/movie/movie-detail/evaluation/index.vue'),
+                            meta: {
+                                isShow: false
+                            },
+                        }, {
+                            path: 'comment',
+                            name: "comment",
+                            component: () => import('../views/movie/movie-detail/comment/index.vue'),
+                            meta: {
+                                isShow: false,
+                            },
+                        }, {
+                            path: 'more',
+                            name: "more",
+                            component: () => import('../views/movie/movie-detail/more/index.vue'),
+                            meta: {
+                                isShow: false,
+                            },
 
+                        },
+                        {
+                            name: "boxoffice",
+                            path: 'boxoffice',
+                            component: () => import('../views/movie/boxoffice/index.vue'),
+                            meta: {
+                                isShow: false,
+                            },
+                        },
+                        {
+                            name: "actor",
+                            path: 'actor',
+                            component: () => import('../views/movie/actor/index.vue'),
+                            meta: {
+                                isShow: false,
+                            },
+
+                        }
+
+                    ]
+                },
             ]
         },
         {
@@ -151,12 +154,58 @@ export default new Router({
             path: '/my',
             name: 'my',
             component: () =>
-                import( /* webpackChunkName: "about" */ '../views/my/index.vue'),
+                import( /* webpackChunkName: "about" */ '@/views/my/index.vue'),
             meta: {
                 isShow: true
+            },
+            redirect: '/my/index/index',
+            children: [{
+                    path: 'coupon',
+                    name: 'coupon',
+                    component: () =>
+                        import( /* webpackChunkName: "about" */ '@/views/my/coupon/index.vue'),
+                    meta: {
+                        isShow: true
+                    },
+                },
+                {
+                    path: 'personal',
+                    name: 'personal',
+                    component: () =>
+                        import( /* webpackChunkName: "about" */ '@/views/my/personal/index.vue'),
+                    meta: {
+                        isShow: true
+                    }
+                },
+                {
+                    path: 'each',
+                    name: 'each',
+                    component: () =>
+                        import( /* webpackChunkName: "about" */ '@/views/my/each/index.vue'),
+                    meta: {
+                        isShow: true
+                    }
+                },
+                {
+                    path: 'index/index',
+                    name: 'index',
+                    component: () =>
+                        import( /* webpackChunkName: "about" */ '@/views/my/index/index.vue'),
+                    meta: {
+                        isShow: true
+                    },
+                }
+            ]
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: () =>
+                import( /* webpackChunkName: "about" */ '../views/login/index.vue'),
+            meta: {
+                isShow: false
             }
         },
-
         {
             path: '/ticket',
             name: 'ticket',

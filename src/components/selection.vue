@@ -1,5 +1,5 @@
 <template>
-  <div class="selection">特惠选座</div>
+  <div class="selection" @click="jumpSeat">特惠选座</div>
 </template>
 
 <script>
@@ -7,6 +7,11 @@ export default {
   name: "Selection",
   data() {
     return {};
+  },
+  methods: {
+    jumpSeat() {
+      this.$router.push("/seat");
+    }
   }
 };
 </script>

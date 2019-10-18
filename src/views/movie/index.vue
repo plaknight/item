@@ -21,7 +21,12 @@
         </div>
       </div>
 
-      <router-view />
+      <transition
+        enter-active-class="animated slideInRight faster"
+        mode="out-in"
+      >
+        <router-view />
+      </transition>
     </div>
   </div>
 </template>
@@ -49,7 +54,6 @@ export default {
 .movie {
   height: 100%;
   width: 100%;
-  // margin-bottom: 100px;
   .header {
     height: 44px;
     width: 100%;
