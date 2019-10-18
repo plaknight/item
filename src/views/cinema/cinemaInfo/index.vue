@@ -79,7 +79,7 @@ export default {
     this.cinemaObj = JSON.parse(localStorage.getItem("cinemaObj"));
   },
   destroyed() {
-    widow.localStorage.removeItem("cinemaObj");
+    window.localStorage.removeItem("cinemaObj");
   }
 };
 </script>

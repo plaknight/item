@@ -110,7 +110,7 @@ export default new Router({
     },   // 临时选座路由
     {
       path: '*',
-      redirect: '/login'
+      redirect: '/home'
     }
 
   ]

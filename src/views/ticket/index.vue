@@ -12,11 +12,11 @@
     </div>
     <div class="ticket-main">
       <div class="ticket-main-c">
-        <div class="search">
+        <div class="search" @click="tosearch">
           <div class="search-text">试一试搜索电影</div>
           <div class="right"></div>
         </div>
-        <div class="cinema">
+        <div class="cinema" @click="toMap">
           <div class="cinema-text">万达影院</div>
           <div class="right"></div>
           <div class="position"></div>
@@ -128,8 +128,15 @@ export default {
   methods: {
     goback() {
       this.$router.go(-1);
-    }
+    },
+    toMap(){
+      this.$router.push('/nearbyMap')
+    },
+     tosearch(){
+         this.$router.push('/home/search')
+  }
   },
+ 
   mounted(){
       let bs = new this.BScroll(".ticket", {
       // ...... 详见配置项

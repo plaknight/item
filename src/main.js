@@ -14,10 +14,7 @@ Vue.use(Vant);
 
 //全局引入BScroll插件  每个页面都得使用
 import BScroll from 'better-scroll'
-
-
 //判断是否登录
-
 // router.beforeEach((to, from, next) => {
 //   // ${//to and from are Route Object,next() must be called to resolve the hook}
 //   console.log(to)

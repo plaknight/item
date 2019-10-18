@@ -1,23 +1,13 @@
 <template>
   <div id="app">
 
-    <router-view />
-
-    <div class="nav"  >
-  <tabbar  v-show="$route.meta.isShow" ></tabbar>      <!--  -->
-
-
-    <div class="nav" v-if="$route.meta.isShow">
-  <tabbar></tabbar>
-
-
-    <transition enter-active-class="animated slideInRight faster" mode="out-in">
-      <router-view />
+ <transition enter-active-class="animated slideInRight faster" mode="out-in">
+        <router-view />
     </transition>
-    <div class="nav">
-      <tabbar v-show="$route.meta.isShow"></tabbar>
-
-    </div>
+  
+    <div class="nav"  >
+  <tabbar  v-show="$route.meta.isShow" ></tabbar>    
+  </div>
   </div>
 </template>
 <script>
