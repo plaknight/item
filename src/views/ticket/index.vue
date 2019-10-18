@@ -130,7 +130,7 @@ export default {
       this.$router.go(-1);
     },
     toMap(){
-      this.$router.push('/nearbyMap')
+      this.$router.push('/cinema')
     },
      tosearch(){
          this.$router.push('/home/search')
