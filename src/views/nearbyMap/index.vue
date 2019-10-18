@@ -109,9 +109,14 @@ export default {
     this.addMap();
   },
   created() {
-    this.map.pointLat = this.$route.params.pointLat;
-    this.map.pointLng = this.$route.params.pointLng;
-    this.map.cityName = this.$route.params.cityName;
+    var mapInfo = JSON.parse(window.localStorage.getItem('mapInfo'))
+    this.map.pointLat = mapInfo.pointLat;
+    this.map.pointLng = mapInfo.pointLng;
+    this.map.cityName = mapInfo.cityName;
+
+  },
+  destroyed() {
+    window.localStorage.removeItem("mapInfo");
   }
 };
 </script>

@@ -101,7 +101,14 @@ export default {
       initPosition: "cinema/initPosition"
     }),
     toMap() {
-      this.$router.push({name:'nearbyMap',params:{pointLat:this.pointLat,pointLng:this.pointLng,cityName:this.cityName}});
+      this.$router.push({name:'nearbyMap'});
+      var obj = {
+        pointLat:this.pointLat,
+        pointLng:this.pointLng,
+        cityName:this.cityName
+      }
+      window.localStorage.setItem('mapInfo',JSON.stringify(obj))
+      
     },
     toCinemaInfo(val){
       var index = this.cinemaInfo.findIndex(ele => ele.id == val)
@@ -109,34 +116,39 @@ export default {
       this.$router.push({name:'cinemaInfo'})
     },
     newPosition(){
-      Dialog.confirm({
-        title: "定位",
-        message: "是否允许获取您的位置信息"
-      })
+        Dialog.confirm({
+          title: "定位",
+          message: "是否允许获取您的位置信息"
+        })
         .then(() => {
           this.ifPosition = true
           this.initPosition();
+          localStorage.setItem('ifPosition','1')
         })
         .catch(() => {
-          // this.ifPosition = false
+
         });
     }
   },
   created() {
-    if (this.cityName == "") {
-      Dialog.confirm({
-        title: "定位",
-        message: "是否允许获取您的位置信息"
-      })
-        .then(() => {
+       if(localStorage.getItem('ifPosition')){
           this.ifPosition = true
-          this.initPosition();
-        })
-        .catch(() => {
-          // this.ifPosition = false
-        });
-    }
-  }
+       }else{
+            Dialog.confirm({
+              title: "定位",
+              message: "是否允许获取您的位置信息"
+            })
+            .then(() => {
+              this.ifPosition = true
+              this.initPosition();
+              localStorage.setItem('ifPosition','1')
+            })
+            .catch(() => {
+              // this.ifPosition = false
+            });
+        }
+       }
+     
 };
 </script>
 
