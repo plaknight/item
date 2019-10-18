@@ -28,7 +28,7 @@ export default {
   width: 100%;
   height: 104px;
   z-index: 999;
-  background: url("../assets/movie-imgs/图标/编组.png") no-repeat center;
+  background: url("../assets/movie-imgs/tabbar/bgc.png") no-repeat center;
   background-size: cover;
   .router-link {
     position: relative;
@@ -38,34 +38,34 @@ export default {
     background-size: 33px 33px;
     margin-top: 20px;
     &.home {
-      background-image: url("../assets/movie-imgs/图标/形状结合2.png");
+      background-image: url("../assets/movie-imgs/tabbar/形状结合2.png");
       &.router-link-active {
-        background-image: url("../assets/movie-imgs/图标/形状结合.png");
+        background-image: url("../assets/movie-imgs/tabbar/形状结合.png");
       }
     }
     &.movie {
-      background-image: url("../assets/movie-imgs/图标/编组 4.png");
+      background-image: url("../assets/movie-imgs/tabbar/编组 4.png");
       &.router-link-active {
-        background-image: url("../assets/movie-imgs/图标/编组 4复制.png");
+        background-image: url("../assets/movie-imgs/tabbar/编组 4复制.png");
       }
     }
     &.ticket {
       width: 70px;
       height: 70px;
-      background-image: url("../assets/movie-imgs/图标/编组 6.png");
+      background-image: url("../assets/movie-imgs/tabbar/编组 6.png");
       background-size: 58px 58px;
       margin-top: 0;
     }
     &.cinema {
-      background-image: url("../assets/movie-imgs/图标/编组 8.png");
+      background-image: url("../assets/movie-imgs/tabbar/编组 8.png");
       &.router-link-active {
-        background-image: url("../assets/movie-imgs/图标/编组 81.png");
+        background-image: url("../assets/movie-imgs/tabbar/编组 81.png");
       }
     }
     &.my {
-      background-image: url("../assets/movie-imgs/图标/编组 3.png");
+      background-image: url("../assets/movie-imgs/tabbar/编组 3.png");
       &.router-link-active {
-        background-image: url("../assets/movie-imgs/图标/编组 31.png");
+        background-image: url("../assets/movie-imgs/tabbar/编组 31.png");
       }
     }
   }
@@ -84,6 +84,10 @@ export default {
     );
     box-shadow: 0px 0px 2px 2px rgba(242, 101, 129, 0.11);
     border-radius: 50%;
+  }
+  .ticket.router-link-active::after {
+    width: 0;
+    height: 0;
   }
 }
 </style>

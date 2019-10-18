@@ -2,26 +2,35 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router/router.js'
 import store from './store/store.js'
-import Vant from 'vant';
-import 'vant/lib/index.css';
+// import Vant from 'vant';
 import 'lib-flexible'
+import 'vant/lib/index.css';
+// import { Switch } from 'vant';
+// Vue.use(Switch);
+import Vant from "vant"
+Vue.use(Vant);
 
 //全局引入animate.css
 import "animate.css"
-
-Vue.use(Vant);
-
-
 //全局引入BScroll插件  每个页面都得使用
 import BScroll from 'better-scroll'
-
-
 //判断是否登录
+// router.beforeEach((to, from, next) => {
+//   console.log(to.name)
+//   // if (to.name) {
+//   if (!window.localStorage.getItem('usermsg')) {
+//     next('/login')
+//   } else {
+//     next()
+//   }
+//   // } else {
+//   //   next()
+//   // }
 
-router.beforeEach((to, from, next) => {
-  // ${//to and from are Route Object,next() must be called to resolve the hook}
-  next()
-})
+//   // ${//to and from are Route Object,next() must be called to resolve the hook}
+//   console.log(to)
+//   next()
+// })
 
 //全局引入组件
 import Search from '@/components/Search.vue'
@@ -40,3 +49,12 @@ var vm = new Vue({
 }).$mount('#app')
 
 
+// router.beforeEach((to, from, next) => {
+//   // console.log(to.name)
+//   // if (to.name) {
+//   if (!window.localStorage.getItem('usermsg')) {
+//     console.log(123)
+//     next('/login')
+//   }
+//   next()
+// })

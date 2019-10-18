@@ -12,6 +12,7 @@
           type="text"
           placeholder="请输入手机号"
           name="username"
+          v-model="user"
         />
       </div>
       <div>
@@ -20,11 +21,12 @@
           type="text"
           placeholder="请输入密码"
           name="password"
+          v-model="pass"
         />
       </div>
     </div>
     <div class="login-btn">
-      <button>{{ msg }}</button>
+      <button @click="login">{{ msg }}</button>
     </div>
     <div class="login-msg">
       <a href="javascript:void(0)">注册</a>
@@ -39,11 +41,26 @@ export default {
   data() {
     return {
       msg: "登录",
-      backImg: require("@/assets/movie-imgs/icons/arr-left.png")
+      backImg: require("@/assets/movie-imgs/icons/arr-left.png"),
+      user: "",
+      pass: ""
     };
   },
   created() {
     console.log(this.$route);
+  },
+  methods: {
+    login() {
+      window.localStorage.setItem(
+        "usermsg",
+        JSON.stringify({
+          user: this.user,
+          pass: this.pass
+        })
+      );
+
+      this.$router.push("home");
+    }
   }
 };
 </script>

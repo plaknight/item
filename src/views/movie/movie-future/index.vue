@@ -16,33 +16,37 @@
         <div class="swiper-wrapper">
           <div
             class="swiper-slide"
-            :class="chooseID==item.id?'active':''"
-            v-for="(item) in futureList"
-            :key="item.id"
-            @click="chooseTime(item.date,item.id)"
-
-          >{{ item.date }}</div>
+            :class="chooseDate == item ? 'active' : ''"
+            v-for="item in dateList"
+            :key="item"
+            @click="chooseTime(item)"
+          >
+            {{ item }}
+          </div>
         </div>
       </div>
     </div>
-    <div class="choosetimeList" v-for="item in chooseTimeList" :key="item.id">
-      <img :src="item.img" alt="">
-      <h2> {{ item.name }} </h2>
-    </div>
+    <movielist :movie="chooseTimeList"> </movielist>
+    <!-- <div class="choosetimeList" v-for="item in chooseTimeList" :key="item.id">
+      <img :src="item.img" alt="" />
+      <h2>{{ item.name }}</h2>
+    </div> -->
   </div>
 </template>
 
 <script>
 import Swiper from "swiper";
 import "swiper/css/swiper.css";
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
+import movielist from "../../../components/movielist.vue";
 export default {
   name: "",
   data() {
     return {
       heraldList: [],
-      futureList: [],
       chooseTimeList: [],
-      chooseID:null
+      chooseDate: null,
+      dateList: []
     };
   },
   mounted() {
@@ -69,21 +73,36 @@ export default {
       }
     });
   },
-  methods:{
-    chooseTime(time,id) {
+  methods: {
+    chooseTime(time) {
       this.chooseTimeList = this.futureList.filter(ele => {
-       return ele.date == time;
+        return ele.date == time;
       });
-      this.chooseID = id
+      this.chooseDate = time;
     }
+  },
+  computed: {
+    ...mapState({
+      futureList(state) {
+        return state.hotmovie.datemovie;
+      }
+    })
   },
   created() {
     this.heraldList = this.$store.state.heraldList;
-    this.futureList = this.$store.state.futureList;
-    this.chooseID  = this.futureList[0].id   // 默认第一个
+    this.futureList;
+    this.chooseDate = this.futureList[0].date; // 默认第一个
     this.chooseTimeList = this.futureList.filter(ele => {
-       return ele.date == this.futureList[0].date;
-      });                                     // 默认第一个
+      return ele.date == this.futureList[0].date;
+    });
+    this.futureList.forEach(ele => {
+      if (this.dateList.indexOf(ele.date) == -1) {
+        this.dateList.push(ele.date);
+      }
+    });
+  },
+  components: {
+    movielist
   }
 };
 </script>
@@ -125,25 +144,29 @@ h2 {
     }
   }
   .active {
-    background:linear-gradient(150deg,rgba(242,91,134,1) 0%,rgba(241,172,94,1) 100%);
-      line-height: 26px !important;
-    color: #DFDFDF !important;
+    background: linear-gradient(
+      150deg,
+      rgba(242, 91, 134, 1) 0%,
+      rgba(241, 172, 94, 1) 100%
+    );
+    line-height: 26px !important;
+    color: #dfdfdf !important;
     border: none !important;
   }
 }
-  .choosetimeList {
-    position: relative;
+.choosetimeList {
+  position: relative;
   width: 335px;
-  margin:0 auto;
-  margin-top:15px;
+  margin: 0 auto;
+  margin-top: 15px;
   img {
     float: left;
   }
   h2 {
     float: left;
     margin: 20px 0 0 30px;
-       font-size: 18px;
-       color: #DFDFDF;
+    font-size: 18px;
+    color: #dfdfdf;
   }
 }
 </style>

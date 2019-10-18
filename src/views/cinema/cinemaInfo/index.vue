@@ -24,7 +24,7 @@
           :key="index"
           class="swiper-slide"
         >
-          <img :src="item.img" alt="" />
+          <img :src="item.img" alt="" :data-id="index"/>
         </swiper-slide>
       </swiper>
     </div>
@@ -85,19 +85,9 @@ export default {
         spaceBetween: -60,
         centeredSlides: true,
         loop: true,
-        // loopAdditionalSlides: 0,
         on: {
-          slideNextTransitionEnd:()=>{
-            ++this.index;
-            if (this.index > this.movieSwiperArr.length - 1) {
-              this.index = 0;
-            }
-          },
-          slidePrevTransitionEnd:()=>{
-            this.index--
-            if(this.index < 0){
-              this.index = this.movieSwiperArr.length - 1
-            }
+          slideChangeTransitionEnd:()=>{
+            this.index = document.querySelector('.swiper-slide-active').dataset.swiperSlideIndex
           }
         }
       }

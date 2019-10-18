@@ -1,6 +1,6 @@
 <template>
   <div class="movie">
-    <div class="header">
+    <div class="header" v-if="$route.meta.isShow">
       <div class="header-c">
         <div class="adress">
           郑州
@@ -19,8 +19,9 @@
         </div>
       </div>
     </div>
-
-    <router-view />
+    <transition enter-active-class="animated slideInRight faster" mode="out-in">
+      <router-view />
+    </transition>
   </div>
 </template>
 <script>
