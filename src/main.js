@@ -2,22 +2,19 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router/router.js'
 import store from './store/store.js'
-import Vant from 'vant';
-import 'vant/lib/index.css';
+// import Vant from 'vant';
 import 'lib-flexible'
+import 'vant/lib/index.css';
+// import { Switch } from 'vant';
+// Vue.use(Switch);
+import Vant from "vant"
+Vue.use(Vant);
 
 //全局引入animate.css
 import "animate.css"
-
-Vue.use(Vant);
-
-
 //全局引入BScroll插件  每个页面都得使用
 import BScroll from 'better-scroll'
-
-
 //判断是否登录
-
 // router.beforeEach((to, from, next) => {
 //   console.log(to.name)
 //   // if (to.name) {

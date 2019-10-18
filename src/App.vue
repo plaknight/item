@@ -18,11 +18,11 @@ export default {
   methods: {},
   created() {},
   mounted() {
+    console.log(1231231)
     if (!window.localStorage.getItem("usermsg")) {
       this.$router.push("/login").catch(err => {});
     }
   },
-
   components: {
     tabbar: tabbar
   },

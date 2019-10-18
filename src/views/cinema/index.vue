@@ -1,6 +1,6 @@
 <template>
   <div class="cinema">
-    <div class="wrapper">
+    <div class="betterScroll">
       <div class="content">
         <div class="header">
           <div class="header-c center">
@@ -9,9 +9,6 @@
               <img :src="imgs.downArr" alt />
             </div>
             <p>影院</p>
-            <div class="search">
-              <img :src="imgs.search" alt />
-            </div>
           </div>
         </div>
         <div class="position">
@@ -24,11 +21,17 @@
             <div class="lookMap" @click="toMap">查看地图</div>
           </div>
         </div>
+        <div class="search">
+          <div class="search-c center">
+            <img :src="imgs.search" alt />
+            <input type="text" placeholder="请输入要搜索的影院名称" v-model="searchText">
+          </div>
+        </div>
         <div class="cinemaInfo" v-if="ifPosition">
           <div class="cinemaInfo-c center">
             <div
               class="cinemaBox"
-              v-for="(item, index) in cinemaInfo"
+              v-for="(item, index) in cinemaInfoList"
               :key="index"
               @click="toCinemaInfo(item.id)"
             >
@@ -66,13 +69,13 @@
       </div>
     </div>
     <!-- 这里可以放一些其它的 DOM，但不会影响滚动 -->
-    <div id="allmap"></div>
+      <div id="allmap"></div>    
   </div>
 </template>
 
 <script>
 import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
-import { Dialog } from "vant";
+import { Toast } from "vant";
 export default {
   name: "cinema",
   data() {
@@ -82,10 +85,19 @@ export default {
         search: require("@/assets/movie-imgs/首页_slices/搜索.png"),
         position: require("@/assets/movie-imgs/cinema/定位@2x.png")
       },
-      ifPosition: false
+      ifPosition: false,
+      searchText:''
     };
   },
   computed: {
+    cinemaInfoList(){
+      if(this.searchText == ''){
+        return this.cinemaInfo
+      }else {
+        var arr = this.cinemaInfo.filter(ele => ele.name.indexOf(this.searchText) != -1)
+        return arr
+      }
+    },
     ...mapState({
       cityName(state) {
         return state.cinema.map.cityName;
@@ -106,14 +118,7 @@ export default {
       initPosition: "cinema/initPosition"
     }),
     toMap() {
-      this.$router.push({
-        name: "nearbyMap",
-        params: {
-          pointLat: this.pointLat,
-          pointLng: this.pointLng,
-          cityName: this.cityName
-        }
-      });
+      this.$router.push({ name: "nearbyMap" });
     },
     toCinemaInfo(val) {
       var index = this.cinemaInfo.findIndex(ele => ele.id == val);
@@ -121,33 +126,31 @@ export default {
       this.$router.push({ name: "cinemaInfo" });
     },
     newPosition() {
-      Dialog.confirm({
-        title: "定位",
-        message: "是否允许获取您的位置信息"
-      })
-        .then(() => {
+      Toast.loading({
+        mask: true,
+        duration: 600,
+        message: "更新定位信息",
+        onClose: () => {
           this.ifPosition = true;
           this.initPosition();
-        })
-        .catch(() => {
-          // this.ifPosition = false
-        });
+        }
+      });
     }
   },
-  created() {
-    if (this.cityName == "") {
-      Dialog.confirm({
-        title: "定位",
-        message: "是否允许获取您的位置信息"
-      })
-        .then(() => {
-          this.ifPosition = true;
-          this.initPosition();
-        })
-        .catch(() => {
-          // this.ifPosition = false
-        });
-    }
+  mounted() {
+    Toast.loading({
+      mask: true,
+      duration: 600,
+      message: "更新定位信息",
+      onClose: () => {
+        this.ifPosition = true;
+        this.initPosition();
+      }
+    });
+    let bs = new this.BScroll(".cinema", {
+      // ...... 详见配置项
+      click: true
+    });
   }
 };
 </script>
@@ -157,9 +160,8 @@ export default {
   width: 100%;
   height: 100%;
   font-family: PingFangSC-Regular, PingFangSC;
-  .wrapper {
-    width: 100%;
-    height: 100%;
+  .betterScroll {
+    padding-bottom: 90px;
     .content {
       width: 100%;
       padding-bottom: 35px;
@@ -205,14 +207,6 @@ export default {
             color: rgba(255, 255, 255, 1);
             line-height: 44px;
           }
-          .search {
-            img {
-              position: absolute;
-              right: 0;
-              top: 50%;
-              transform: translateY(-50%);
-            }
-          }
         }
       }
       .position {
@@ -247,6 +241,25 @@ export default {
             height: 17px;
             font-size: 12px;
             line-height: 17px;
+            color: #95979a;
+          }
+        }
+      }
+      .search {
+        width: 100%;
+        height: 30px;
+        background-color: #2C2F36;
+        .search-c{
+          height: 100%;
+          display: flex;
+          align-items: center;
+          input{
+            width: 270px;
+            margin-left: 20px;
+            background-color: rgb(73, 76, 83);
+            border: none;
+            outline: none;
+            text-indent: 10px;
             color: #95979a;
           }
         }
