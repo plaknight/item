@@ -19,8 +19,9 @@
         </div>
       </div>
     </div>
-
-    <router-view />
+    <transition enter-active-class="animated slideInRight faster" mode="out-in">
+      <router-view />
+    </transition>
   </div>
 </template>
 <script>

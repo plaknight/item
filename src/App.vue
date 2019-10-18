@@ -15,16 +15,23 @@ export default {
   data() {
     return {};
   },
-  methods: {
-    get() {
-      // console.log(this.)
+  methods: {},
+  created() {},
+  mounted() {
+    console.log(1231231)
+    if (!window.localStorage.getItem("usermsg")) {
+      this.$router.push("/login").catch(err => {});
     }
   },
-  created() {},
-  mounted: function() {},
-
   components: {
     tabbar: tabbar
+  },
+  watch: {
+    "$route.path"() {
+      if (!window.localStorage.getItem("usermsg")) {
+        this.$router.push("login").catch(err => {});
+      }
+    }
   }
 };
 </script>
@@ -34,6 +41,11 @@ body {
   background: #23262d;
   width: 100%;
   height: 100%;
+  overflow: hidden;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 971c5f65dc520d2bf425f37b97339437e9429a21
 }
 #app {
   width: 100%;

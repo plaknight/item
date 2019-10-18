@@ -3,9 +3,9 @@
     <div class="tops">
       <div class="header">
         <div class="top">
-          <div></div>
-          <span>{{ address }}</span>
           <div @click="go"></div>
+          <span>{{ address }}</span>
+          <div></div>
         </div>
         <div class="name">{{ name }}</div>
         <div>
@@ -85,16 +85,16 @@ export default {
       seat: "3号激光厅银幕",
       total: 33,
       row: [8, 10, 12, 12, 12, 12, 12, 12, 12],
-      select:[],
+      select: []
     };
   },
   created() {},
   computed: {
-    show(){
-      return this.select.length
+    show() {
+      return this.select.length;
     },
-    bought(){
-      return this.$store.state.bought
+    bought() {
+      return this.$store.state.bought;
     }
   },
   mounted() {
@@ -145,27 +145,28 @@ export default {
     }
     ul();
     initdom();
-    console.log(this.bought)
+    console.log(this.bought);
     // 不能选
     this.bought.forEach(ele => {
       var arr = document.querySelector(".cr").childNodes;
-       arr[ele.row-1].childNodes[ele.li-1].classList.add('bought')
-       arr[ele.row-1].childNodes[ele.li-1].style.pointerEvents = 'none'
-    })
+      arr[ele.row - 1].childNodes[ele.li - 1].classList.add("bought");
+      arr[ele.row - 1].childNodes[ele.li - 1].style.pointerEvents = "none";
+    });
   },
   methods: {
     go() {
+      console.log(1);
       this.$router.go(-1);
     },
-    goorder(){
-      this.$store.commit('boughtList', this.select);
-      this.$router.push({path:"order"})
+    goorder() {
+      this.$store.commit("boughtList", this.select);
+      this.$router.push({ path: "order" });
     },
-    remove(val){
-      var index = this.select.findIndex(ele => ele.id == val.id)
-      this.select.splice(index,1)
-       var arr = document.querySelector(".cr").childNodes;
-       arr[val.row-1].childNodes[val.li-1].classList.remove('select')
+    remove(val) {
+      var index = this.select.findIndex(ele => ele.id == val.id);
+      this.select.splice(index, 1);
+      var arr = document.querySelector(".cr").childNodes;
+      arr[val.row - 1].childNodes[val.li - 1].classList.remove("select");
     },
     color(e, row, li) {
       var obj = {
@@ -182,11 +183,11 @@ export default {
         this.select.splice(index, 1);
         arr[row - 1].childNodes[li - 1].classList.remove("select");
       } else {
-        if(this.select.length<4){
+        if (this.select.length < 4) {
           this.select.push(obj);
-        arr[row - 1].childNodes[li - 1].classList.add("select");
-        }else{
-          alert('一次最多只能选4张票')
+          arr[row - 1].childNodes[li - 1].classList.add("select");
+        } else {
+          alert("一次最多只能选4张票");
         }
       }
     }
@@ -433,8 +434,8 @@ export default {
           &.select {
             background-color: #6548a9;
           }
-          &.bought{
-             background-color: #f9c34a;
+          &.bought {
+            background-color: #f9c34a;
           }
         }
       }

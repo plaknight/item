@@ -95,8 +95,11 @@ export default ({
             map.centerAndZoom(point, 12);
 
             function myFun(result) {
-                state.map.pointLat = result.center.lat
-                state.map.pointLng = result.center.lng
+                var obj = {
+                    pointLat: result.center.lat,
+                    pointLng: result.center.lng,
+                }
+                window.localStorage.setItem("mapInfo", JSON.stringify(obj));
                 var cityName = result.name;
                 map.setCenter(cityName);
                 state.map.cityName = cityName

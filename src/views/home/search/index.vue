@@ -48,9 +48,7 @@ export default {
   },
   methods: {
       backHome(){
-        this.$router.push({path:"/home",query:{
-          address: this.$route.query.address
-        }}).catch(el=>{})
+        this.$router.go(-1);
       }
   },
   mounted() {
