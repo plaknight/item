@@ -47,14 +47,7 @@ export default ({
                         startTime:'15:30',
                         endTime:'17:14',
                     },
-                    {
-                        startTime:'15:30',
-                        endTime:'17:14',
-                    },
-                    {
-                        startTime:'15:30',
-                        endTime:'17:14',
-                    },
+
                 ]
             },
             {
@@ -83,18 +76,6 @@ export default ({
                 class:'剧情、伦理、惊悚',
                 actor:'伊娃·格林、玛利亚·瓦沃德、朱诺·坦普尔',
                 session:[
-                    {
-                        startTime:'15:30',
-                        endTime:'17:14',
-                    },
-                    {
-                        startTime:'15:30',
-                        endTime:'17:14',
-                    },
-                    {
-                        startTime:'15:30',
-                        endTime:'17:14',
-                    },
                     {
                         startTime:'15:30',
                         endTime:'17:14',
