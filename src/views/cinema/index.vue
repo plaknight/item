@@ -2,7 +2,6 @@
   <div class="cinema">
     <div class="betterScroll">
       <div class="content">
-
         <div class="header">
           <div class="header-c center">
             <div class="adress">
@@ -10,9 +9,6 @@
               <img :src="imgs.downArr" alt />
             </div>
             <p>影院</p>
-            <div class="search">
-              <img :src="imgs.search" alt />
-            </div>
           </div>
         </div>
         <div class="position">
@@ -25,11 +21,17 @@
             <div class="lookMap" @click="toMap">查看地图</div>
           </div>
         </div>
+        <div class="search">
+          <div class="search-c center">
+            <img :src="imgs.search" alt />
+            <input type="text" placeholder="请输入要搜索的影院名称" v-model="searchText">
+          </div>
+        </div>
         <div class="cinemaInfo" v-if="ifPosition">
           <div class="cinemaInfo-c center">
             <div
               class="cinemaBox"
-              v-for="(item, index) in cinemaInfo"
+              v-for="(item, index) in cinemaInfoList"
               :key="index"
               @click="toCinemaInfo(item.id)"
             >
@@ -83,10 +85,19 @@ export default {
         search: require("@/assets/movie-imgs/首页_slices/搜索.png"),
         position: require("@/assets/movie-imgs/cinema/定位@2x.png")
       },
-      ifPosition: false
+      ifPosition: false,
+      searchText:''
     };
   },
   computed: {
+    cinemaInfoList(){
+      if(this.searchText == ''){
+        return this.cinemaInfo
+      }else {
+        var arr = this.cinemaInfo.filter(ele => ele.name.indexOf(this.searchText) != -1)
+        return arr
+      }
+    },
     ...mapState({
       cityName(state) {
         return state.cinema.map.cityName;
@@ -196,14 +207,6 @@ export default {
             color: rgba(255, 255, 255, 1);
             line-height: 44px;
           }
-          .search {
-            img {
-              position: absolute;
-              right: 0;
-              top: 50%;
-              transform: translateY(-50%);
-            }
-          }
         }
       }
       .position {
@@ -238,6 +241,25 @@ export default {
             height: 17px;
             font-size: 12px;
             line-height: 17px;
+            color: #95979a;
+          }
+        }
+      }
+      .search {
+        width: 100%;
+        height: 30px;
+        background-color: #2C2F36;
+        .search-c{
+          height: 100%;
+          display: flex;
+          align-items: center;
+          input{
+            width: 270px;
+            margin-left: 20px;
+            background-color: rgb(73, 76, 83);
+            border: none;
+            outline: none;
+            text-indent: 10px;
             color: #95979a;
           }
         }

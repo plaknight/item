@@ -100,7 +100,6 @@ export default {
           })
         }
       );
-
       var local = new BMap.LocalSearch(map, {
         renderOptions: { map: map }
       });
