@@ -22,8 +22,6 @@ export default {
       this.$router.push("/login").catch(err => {});
     }
   },
-  created() {},
-  mounted: function() {},
 
   components: {
     tabbar: tabbar
@@ -43,10 +41,12 @@ body {
   background: #23262d;
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 #app {
   width: 100%;
   height: 100%;
+  
 }
 a {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);

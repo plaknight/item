@@ -47,8 +47,21 @@ export default {
     };
   },
   created() {
-    console.log(this.$route);
+    //   console.log(this.$route);
+    //   this.$router.beforeEach((to, from, next) => {
+    // console.log(to.name)
+    // // if (to.name) {
+    // if (!window.localStorage.getItem('usermsg')) {
+    //   next('/login')
+    // } else {
+    //   next()
+    // }
+    // } else {
+    //   next()
+    // }
+    // })
   },
+
   methods: {
     login() {
       window.localStorage.setItem(

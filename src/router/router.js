@@ -40,6 +40,15 @@ export default new Router({
     ]
   },
   {
+    path: '/login',
+    name: "loigin",
+    component: () =>
+      import('@/views/login/index.vue'),
+    meta: {
+      isShow: false
+    }
+  },
+  {
     path: '/movie',
     name: 'movie',
     component: () => import( /* webpackChunkName: "about" */ '../views/movie/index.vue'),
@@ -52,6 +61,9 @@ export default new Router({
         isShow: true
       },
 
+    },
+    {
+      path: 'grade',
     },
     {
       path: 'hots',
@@ -81,7 +93,8 @@ export default new Router({
         meta: {
           isShow: false
         },
-      }, {
+      },
+      {
         path: 'comment',
         name: "comment",
         component: () => import('../views/movie/movie-detail/comment/index.vue'),
@@ -95,7 +108,7 @@ export default new Router({
         meta: {
           isShow: false,
         },
-      }]
+      },]
     },
     {
       name: "boxoffice",

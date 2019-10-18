@@ -33,13 +33,18 @@
           <div v-for="(items, index) in row" :key="index">{{ index + 1 }}</div>
         </div>
         <div class="cr">
-          <div class="list" v-for="(item, index) in row" :key="item.index">
-            <div
+          <div
+            :class="item[1].flag ? 'select' : ''" class="list"
+            v-for="(item, index) in seatArr"
+            :key="item + index"
+          >
+            <!-- <div
               v-for="seat in item"
               :key="seat.index"
               class="row"
               @click="color($event, index + 1, seat)"
-            ></div>
+            ></div> -->
+            <!-- {{item}} -->
           </div>
         </div>
       </div>
@@ -48,10 +53,10 @@
       <div class="footer">
         <div class="ft">
           <span>推荐座位</span>
-          <div>1人</div>
-          <div>2人</div>
-          <div>3人</div>
-          <div>4人</div>
+          <div @click="choseSeat(1)">1人</div>
+          <div @click="choseSeat(2)">2人</div>
+          <div @click="choseSeat(3)">3人</div>
+          <div @click="choseSeat(4)">4人</div>
         </div>
         <div class="but">请先选座</div>
       </div>
@@ -84,11 +89,34 @@ export default {
       address: "耀莱成龙影城（建业店)",
       seat: "3号激光厅银幕",
       total: 33,
-      row: [8, 10, 12, 12, 12, 12, 12, 12, 12],
-      select: []
+      row: [12, 12, 12, 12, 12, 12, 12, 12, 12],
+      select: [],
+      seatArr: [],
+      idx: 3,
     };
   },
-  created() {},
+  watch: {
+    seatArr : {
+       deep:true, //深度监听设置为 true
+        handler:function(newV,oldV){
+           let newArr = newV.filter(el =>{
+              return  (el[0] === this.idx) 
+            })
+         var flag = newArr.every(el =>{
+             return (el[1].flag === true)
+          })
+          console.log(1)
+          if(flag && this.idx > 0){
+            this.idx--
+          }
+          
+     }
+    }
+
+  },
+  created() {
+    this.addSeat();
+  },
   computed: {
     show() {
       return this.select.length;
@@ -99,39 +127,39 @@ export default {
   },
   mounted() {
     function initdom() {
-      var arr = document.querySelector(".cr").childNodes;
-      for (var i = 0; i < arr.length; i++) {
-        //   console.log(arr);
-        var arr1 = arr[i].childNodes;
-        for (var j = 0; j < arr1.length; j++) {
-          if (i == 0) {
-            if (j == 1 || j == 5) {
-              arr1[j].style.marginRight = "15px";
-            } else {
-              arr1[j].style.marginRight = "5px";
-            }
-          } else if (i == 1) {
-            if (j == 2 || j == 6) {
-              arr1[j].style.marginRight = "15px";
-            } else {
-              arr1[j].style.marginRight = "5px";
-            }
-          } else {
-            if ((j + 1) % 4 == 0) {
-              arr1[j].style.marginRight = "15px";
-            } else {
-              arr1[j].style.marginRight = "5px";
-            }
-          }
-        }
-        if ((i + 1) % 3 == 0) {
-          arr[i].style.marginBottom = "15px";
-        } else {
-          arr[i].style.marginBottom = "5px";
-        }
-        arr[0].style.marginLeft = "-10px";
-        arr[1].style.marginLeft = "-10px";
-      }
+      // var arr = document.querySelector(".cr").childNodes;
+      // for (var i = 0; i < arr.length; i++) {
+      //   //   console.log(arr);
+      //   var arr1 = arr[i].childNodes;
+      //   for (var j = 0; j < arr1.length; j++) {
+      //     if (i == 0) {
+      //       if (j == 1 || j == 5) {
+      //         arr1[j].style.marginRight = "15px";
+      //       } else {
+      //         arr1[j].style.marginRight = "5px";
+      //       }
+      //     } else if (i == 1) {
+      //       if (j == 2 || j == 6) {
+      //         arr1[j].style.marginRight = "15px";
+      //       } else {
+      //         arr1[j].style.marginRight = "5px";
+      //       }
+      //     } else {
+      //       if ((j + 1) % 4 == 0) {
+      //         arr1[j].style.marginRight = "15px";
+      //       } else {
+      //         arr1[j].style.marginRight = "5px";
+      //       }
+      //     }
+      //   }
+      //   if ((i + 1) % 3 == 0) {
+      //     arr[i].style.marginBottom = "15px";
+      //   } else {
+      //     arr[i].style.marginBottom = "5px";
+      //   }
+      //   arr[0].style.marginLeft = "-10px";
+      //   arr[1].style.marginLeft = "-10px";
+      // }
     }
     function ul() {
       var ul = document.querySelector(".cl").childNodes;
@@ -145,15 +173,74 @@ export default {
     }
     ul();
     initdom();
-    console.log(this.bought);
+    console.log(this.seatArr);
     // 不能选
-    this.bought.forEach(ele => {
-      var arr = document.querySelector(".cr").childNodes;
-      arr[ele.row - 1].childNodes[ele.li - 1].classList.add("bought");
-      arr[ele.row - 1].childNodes[ele.li - 1].style.pointerEvents = "none";
-    });
+    // this.bought.forEach(ele => {
+    //   var arr = document.querySelector(".cr").childNodes;
+    //   arr[ele.row - 1].childNodes[ele.li - 1].classList.add("bought");
+    //   arr[ele.row - 1].childNodes[ele.li - 1].style.pointerEvents = "none";
+    // });
   },
   methods: {
+    choseSeat(val){
+
+          let arr = this.seatArr.filter(el=> {
+            // console.log((el[0] === 4))
+           return (el[0] === this.idx) && (el[1].flag === false)
+          })
+          for(let j = 0 ; j < val; j ++){
+            
+            
+            arr[j][1].flag = true
+            
+          }
+            console.log(arr)
+    },
+    addSeat() {
+      for (let i = 0; i < this.row.length; i++) {
+        for (let j = 0; j < this.row[i]; j++) {
+          // debugger
+          if (
+            i === 0 ||
+            i === this.row.length - 1 ||
+            j === 0 ||
+            j === this.row[i] - 1
+          ) {
+            this.seatArr.push([0, { flag: false }]);
+            continue;
+          }
+          if (
+            i === 1 ||
+            i === this.row.length - 2 ||
+            j === 1 ||
+            j === this.row[i] - 2
+          ) {
+            this.seatArr.push([1, { flag: false }]);
+            continue;
+          }
+          if (
+            i === 2 ||
+            i === this.row.length - 3 ||
+            j === 2 ||
+            j === this.row[i] - 3
+          ) {
+            this.seatArr.push([2, { flag: false }]);
+            continue;
+          }
+          if (
+            i === 3 ||
+            i === this.row.length - 4 ||
+            j === 3 ||
+            j === this.row[i] - 4
+          ) {
+            this.seatArr.push([3, { flag: false }]);
+            continue;
+          }
+
+          this.seatArr.push([4, { flag: true }]);
+        }
+      }
+    },
     go() {
       console.log(1);
       this.$router.go(-1);
@@ -421,22 +508,24 @@ export default {
     }
     .cr {
       width: 100%;
-      padding-left: 20px;
-      padding-top: 20px;
+      padding-left: 15px;
+      padding-top: 10px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap-reverse;
+      // flex-direction: column-reverse;
+      align-content: flex-start;
       .list {
-        display: flex;
-        justify-content: center;
-        .row {
-          width: 20px;
-          height: 20px;
-          border-radius: 3px;
-          background: rgba(216, 216, 216, 1);
-          &.select {
-            background-color: #6548a9;
-          }
-          &.bought {
-            background-color: #f9c34a;
-          }
+        width: 20px;
+        height: 20px;
+        border-radius: 3px;
+        background: rgba(216, 216, 216, 1);
+        margin: 4px;
+        &.select {
+          background-color: #6548a9;
+        }
+        &.bought {
+          background-color: #f9c34a;
         }
       }
     }

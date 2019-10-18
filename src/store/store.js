@@ -50,14 +50,14 @@ export default new Vuex.Store({
         heraldList: heraldList,
         cinemaList: cinemaList,
         bought: [{
-                id: 11,
-                row: 1,
-                li: 1
+                id: 57,
+                row: 5,
+                li: 7
             },
             {
-                id: 55,
+                id: 56,
                 row: 5,
-                li: 5
+                li: 6
             }
         ],
     },
