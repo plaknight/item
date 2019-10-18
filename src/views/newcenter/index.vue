@@ -56,13 +56,13 @@
           </div>    
         </div>
         <!-- 消息通知 -->
-        <div class="newtips">
+        <router-link tag="div" to="/news" class="newtips" v-for="item in list" :key="item.id">
           <div class="notice">
             <div class="icon">
-            <img src="../../assets/movie-imgs/newcenter/head1.png" alt="" class="headimg">
+            <img :src="item.img" alt="" class="headimg">
             </div>
             <div class="msg">
-              <p>Zeng Wen</p>
+              <p>{{item.name}}</p>
               <p>哈皮巴斯得！祝你生日快乐！</p>
             </div>
             <div class="time">
@@ -70,24 +70,7 @@
               <div class="round">1</div>
             </div>
           </div>
-        </div>
-
-
-        <div class="newtips">
-          <div class="notice">
-            <div class="icon">
-            <img src="../../assets/movie-imgs/newcenter/head1.png" alt="" class="headimg">
-            </div>
-            <div class="msg">
-              <p>Zeng Wen</p>
-              <p>哈皮巴斯得！祝你生日快乐！</p>
-            </div>
-            <div class="time">
-              <span>一个月前</span>
-              <div class="round">1</div>
-            </div>
-          </div>
-        </div>
+        </router-link>
   </div>
 </div>
 
@@ -95,7 +78,26 @@
 
 <script>
 export default {
-
+data(){
+  return{
+    list:[{
+      id:0,
+      img:require('@/assets/movie-imgs/newcenter/head1.png'),
+      name:'Zeng Wen'
+    },
+    {
+      id:1,
+      img:require('@/assets/movie-imgs/newcenter/head3.png'),
+      name:'Kimmy McIlmorie'
+    },
+    {
+      id:2,
+      img:require('@/assets/movie-imgs/newcenter/head4.png'),
+      name:'Kimmy McIlmorie'
+    },
+    ]
+  }
+}
 }
 </script>
 
@@ -115,8 +117,8 @@ export default {
     .title-c {
       @include titleCenter;
       i {
-        width: 7px;
-        height: 13px;
+        width: .58667rem;
+        height: .58667rem;
         background-image: url("../../assets/movie-imgs/myorder/arr-left.png");
         background-size: cover;
       }

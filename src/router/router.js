@@ -120,7 +120,7 @@ export default new Router({
       ]
     },
     {
-        path:'/myorder/:ids',
+        path:'/myorder/:ids',  //订单页面
         component: () =>
         import( /* webpackChunkName: "myorder" */ '../views/myorder/index.vue'),
         meta: {
@@ -251,7 +251,24 @@ export default new Router({
     {
       path: '*',
       redirect: '/home'
-    }
-
+    },
+    {
+        path: '/newcenter',
+        name: '/newcenter',
+        component: () =>
+          import( /* webpackChunkName: "about" */ '../views/newcenter/index.vue'),
+        meta: {
+          isShow: false
+        }
+    },
+    {
+      path: '/news',
+      name: '/news',
+      component: () =>
+        import( /* webpackChunkName: "news" */ '../views/news/index.vue'),
+      meta: {
+        isShow: false
+      }
+  }
   ]
 })

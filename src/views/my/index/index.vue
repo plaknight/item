@@ -8,7 +8,7 @@
         <div class="huiyuan">V1青铜会员&nbsp;></div>
         <router-link class="shezhi" to="/my/personal"></router-link>
         <!-- <div class="shezhi"></div> -->
-        <div class="pinglun"></div>
+        <div class="pinglun" @click ="$router.push('/newcenter')"></div>
         <div class="member">
           <span class="text-1">会员中心</span>
           <div class="text-2"></div>
@@ -19,21 +19,21 @@
       </div>
       <div class="order">
         <span class="text-1">我的订单</span>
-        <span class="text-2">全部&nbsp;></span>
+        <span class="text-2" @click ="$router.push('/myorder/0')">全部&nbsp;></span>
         <ul class="list">
-          <li class="item">
+          <li class="item" @click ="$router.push('/myorder/4')">
             <div class="img-1"></div>
             <span>未消费</span>
           </li>
-          <li class="item">
+          <li class="item" @click ="$router.push('/myorder/1')">
             <div class="img-2"></div>
             <span>待付款</span>
           </li>
-          <li class="item">
+          <li class="item" @click ="$router.push('/myorder/2')">
             <div class="img-3"></div>
             <span>待评价</span>
           </li>
-          <li class="item">
+          <li class="item" @click ="$router.push('/myorder/3')">
             <div class="img-4"></div>
             <span class="s4">退款</span>
           </li>
@@ -66,7 +66,7 @@ export default {
   name: "",
   data() {
     return {
-      username: ""
+      username: "",
     };
   },
   mounted() {
