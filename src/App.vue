@@ -18,7 +18,7 @@ export default {
   methods: {},
   created() {},
   mounted() {
-    console.log(1231231)
+    console.log(1231231);
     if (!window.localStorage.getItem("usermsg")) {
       this.$router.push("/login").catch(err => {});
     }
@@ -46,7 +46,7 @@ body {
 #app {
   width: 100%;
   height: 100%;
-  
+  overflow: hidden;
 }
 a {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);

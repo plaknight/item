@@ -57,104 +57,108 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.header {
-  margin-top: 20px;
-  height: 20px;
-  width: 375;
-  .goback {
-    float: left;
-    margin-left: 20px;
-    font-size: 20px;
-    color: #fff;
-  }
-  .title {
-    float: left;
-    margin-top: 3px;
-    margin-left: 110px;
-    font-size: 16px;
-    font-family: PingFangSC-Medium, PingFangSC;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 1);
-    line-height: 16px;
-  }
-}
-.boxoffice {
-  margin-top: 20px;
-  display: flex;
-  justify-content: space-around;
-  height: 40px;
-  width: 100%;
-  .today,
-  .week,
-  .quantity {
-    text-align: center;
-    width: 33%;
-    height: 100%;
-    .num {
-      height: 18px;
-      font-size: 18px;
-      font-family: PingFangSC-Medium, PingFangSC;
-      font-weight: 500;
-      color: rgba(251, 195, 74, 1);
-      line-height: 18px;
-    }
-    .text {
-      margin-top: 5px;
-      height: 12px;
-      font-size: 12px;
-      font-family: PingFangSC-Regular, PingFangSC;
-      font-weight: 400;
-      color: #55585d;
-      line-height: 12px;
-    }
-  }
-  .week {
-    .num {
+.box-office {
+  overflow: hidden;
+
+  .header {
+    margin-top: 20px;
+    height: 20px;
+    width: 375;
+    .goback {
+      float: left;
+      margin-left: 20px;
+      font-size: 20px;
       color: #fff;
     }
+    .title {
+      float: left;
+      margin-top: 3px;
+      margin-left: 110px;
+      font-size: 16px;
+      font-family: PingFangSC-Medium, PingFangSC;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 1);
+      line-height: 16px;
+    }
   }
-}
-.line {
-  margin-top: 20px;
-  width: 375px;
-  height: 6px;
-  background: rgba(51, 54, 61, 1);
-}
-.total {
-  .title {
-    margin-left: 20px;
+  .boxoffice {
     margin-top: 20px;
-    width: 48px;
-    height: 18px;
-    font-size: 16px;
-    font-family: PingFangSC-Regular, PingFangSC;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 1);
-    line-height: 18px;
-  }
-  .total-info {
     display: flex;
-    padding: 0 20px;
-    box-sizing: border-box;
-    justify-content: space-between;
-    .area,
+    justify-content: space-around;
+    height: 40px;
+    width: 100%;
+    .today,
     .week,
-    .total-num {
-      .key {
-        margin-top: 23px;
+    .quantity {
+      text-align: center;
+      width: 33%;
+      height: 100%;
+      .num {
+        height: 18px;
+        font-size: 18px;
+        font-family: PingFangSC-Medium, PingFangSC;
+        font-weight: 500;
+        color: rgba(251, 195, 74, 1);
+        line-height: 18px;
+      }
+      .text {
+        margin-top: 5px;
+        height: 12px;
         font-size: 12px;
         font-family: PingFangSC-Regular, PingFangSC;
         font-weight: 400;
-        color: #54575e;
+        color: #55585d;
         line-height: 12px;
       }
-      .value {
-        margin-top: 20px;
-        font-size: 12px;
-        font-family: PingFangSC-Regular, PingFangSC;
-        font-weight: 400;
-        color: #b6b7b9;
-        line-height: 12px;
+    }
+    .week {
+      .num {
+        color: #fff;
+      }
+    }
+  }
+  .line {
+    margin-top: 20px;
+    width: 375px;
+    height: 6px;
+    background: rgba(51, 54, 61, 1);
+  }
+  .total {
+    .title {
+      margin-left: 20px;
+      margin-top: 20px;
+      width: 48px;
+      height: 18px;
+      font-size: 16px;
+      font-family: PingFangSC-Regular, PingFangSC;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 1);
+      line-height: 18px;
+    }
+    .total-info {
+      display: flex;
+      padding: 0 20px;
+      box-sizing: border-box;
+      justify-content: space-between;
+      .area,
+      .week,
+      .total-num {
+        .key {
+          margin-top: 23px;
+          font-size: 12px;
+          font-family: PingFangSC-Regular, PingFangSC;
+          font-weight: 400;
+          color: #54575e;
+          line-height: 12px;
+        }
+        .value {
+          margin-top: 20px;
+          font-size: 12px;
+          font-family: PingFangSC-Regular, PingFangSC;
+          font-weight: 400;
+          color: #b6b7b9;
+          line-height: 12px;
+        }
       }
     }
   }

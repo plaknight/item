@@ -15,6 +15,7 @@ const city = {
         },
         //百度地图定位
         initPosition(state) {
+            
             var map = new BMap.Map("allmap");
             var geolocation = new BMap.Geolocation();
             geolocation.getCurrentPosition(

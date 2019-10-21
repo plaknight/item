@@ -112,6 +112,7 @@ export default {
 
 <style lang='scss' scoped>
 .actor {
+  margin-bottom: -50px;
   .background {
     position: relative;
     overflow: hidden;

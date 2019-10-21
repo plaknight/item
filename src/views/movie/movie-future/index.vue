@@ -26,11 +26,8 @@
         </div>
       </div>
     </div>
+
     <movielist :movie="chooseTimeList"> </movielist>
-    <!-- <div class="choosetimeList" v-for="item in chooseTimeList" :key="item.id">
-      <img :src="item.img" alt="" />
-      <h2>{{ item.name }}</h2>
-    </div> -->
   </div>
 </template>
 
@@ -43,7 +40,7 @@ export default {
   name: "",
   data() {
     return {
-      heraldList: [],
+      // heraldList: [],
       chooseTimeList: [],
       chooseDate: null,
       dateList: []
@@ -85,11 +82,14 @@ export default {
     ...mapState({
       futureList(state) {
         return state.hotmovie.datemovie;
+      },
+      heraldList(state) {
+        return state.hotmovie.heraldmovie;
       }
     })
   },
   created() {
-    this.heraldList = this.$store.state.heraldList;
+    // this.heraldList = this.$store.state.heraldList;
     this.futureList;
     this.chooseDate = this.futureList[0].date; // 默认第一个
     this.chooseTimeList = this.futureList.filter(ele => {

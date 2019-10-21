@@ -140,7 +140,8 @@ export default {
         height: 25px;
         line-height: 25px;
         text-align: center;
-
+        font-size: 12px;
+        color: #fff;
         box-shadow: 0px 0px 4px 1px rgba(242, 109, 125, 0.18);
         border-radius: 6px;
         &.pink {

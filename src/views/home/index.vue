@@ -42,7 +42,7 @@
         </div>
       </div>
       <div class="swiper-pagination"></div>
-      <titleP msg="热映影片" msg2="全部"></titleP>
+      <titleP msg="热映影片" msg2="全部" to="hots"></titleP>
       <!-- 热映电影 -->
       <div class="swiper-container-hots">
         <div class="swiper-wrapper">
@@ -54,7 +54,7 @@
         </div>
       </div>
       <!-- 即将上映 -->
-      <titleP msg="即将上映" msg2="全部"></titleP>
+      <titleP msg="即将上映" msg2="全部" to="future"></titleP>
       <div class="swiper-container-future">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="item in futureList" :key="item.id">
@@ -65,7 +65,7 @@
         </div>
       </div>
       <!-- 预告 -->
-      <titleP msg="精选预告" msg2="更多"></titleP>
+      <titleP msg="精选预告" msg2="更多" to="future"></titleP>
       <div class="swiper-container-herald">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="item in heraldList" :key="item.id">
@@ -95,6 +95,17 @@ export default {
     // }
   },
   computed: {
+    ...mapState({
+      hotList(state) {
+        return state.hotmovie.hotmovie;
+      },
+      futureList(state) {
+        return state.hotmovie.datemovie;
+      },
+      heraldList(state) {
+        return state.hotmovie.heraldmovie;
+      }
+    }),
     ...mapGetters({
       address: "city/getAddress"
     })
@@ -137,10 +148,7 @@ export default {
           require("@/assets/movie-imgs/home/大鱼海棠复制 4.png"),
           require("@/assets/movie-imgs/home/大鱼海棠.png")
         ]
-      },
-      hotList: [], // 正在热映
-      futureList: [],
-      heraldList: []
+      }
       // address: ""
       // cityShow: true
     };
@@ -148,10 +156,14 @@ export default {
   components: {
     titleP: titleP
   },
+  created(){
+    console.log(123);
+  },
   mounted: function() {
     //默认百度插件执行
-    // console.log(1);
-    this.initPosition();
+     if(!this.address){
+       this.initPosition();
+     }
 
     //betterSrcoll插件
     let bs = new this.BScroll(".home", {
@@ -174,27 +186,30 @@ export default {
       slidesPerView: "auto", //设置slider容器能够同时显示的slides数量(carousel模式)。另外，支持'auto'值，会根据容器container的宽度调整slides数目。
       effect: "coverflow", //可以实现3D效果的轮播,
       centeredSlides: true, //设定为true时，active slide会居中，而不是默认状态下的居左。
-      spaceBetween: -50
+      spaceBetween: -20,
+      coverflowEffect: {
+        rotate: 0
+      }
     });
     new Swiper(".swiper-container-hots", {
       slidesPerView: "auto",
-      spaceBetween: 15,
+      spaceBetween: 10,
       breakpoints: {
         //当宽度大于等于320
         320: {
           slidesPerView: "auto",
-          spaceBetween: 15
+          spaceBetween: 10
         }
       }
     });
     new Swiper(".swiper-container-future", {
       slidesPerView: "auto",
-      spaceBetween: 15,
+      spaceBetween: 10,
       breakpoints: {
         //当宽度大于等于320
         320: {
           slidesPerView: "auto",
-          spaceBetween: 15
+          spaceBetween: 10
         }
       }
     });
@@ -210,11 +225,7 @@ export default {
       }
     });
   },
-  created() {
-    this.hotList = this.$store.state.hotList;
-    this.futureList = this.$store.state.futureList;
-    this.heraldList = this.$store.state.heraldList;
-  }
+  
 };
 </script>
 <style lang="scss" scoped>
@@ -304,8 +315,15 @@ export default {
 }
 .swiper-container-hots {
   margin-left: 20px;
+  img {
+    width: 90px;
+    height: 122px;
+    // background:rgba(216,216,216,1);
+    border-radius: 6px;
+  }
   p {
-    width: 60px;
+    overflow: hidden;
+    width: 90px;
     height: 12px;
     font-size: 12px;
     font-family: PingFangSC-Medium, PingFangSC;
@@ -336,6 +354,11 @@ export default {
 }
 .swiper-container-future {
   margin-left: 20px;
+  img {
+    width: 120px;
+    height: 162px;
+    border-radius: 6px;
+  }
   p {
     width: 96px;
     height: 20px;
@@ -362,6 +385,11 @@ export default {
 }
 .swiper-container-herald {
   margin-left: 20px;
+  img {
+    width: 295px;
+    height: 160px;
+    border-radius: 6px;
+  }
   p {
     width: 295px;
     height: 36px;

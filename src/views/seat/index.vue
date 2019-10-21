@@ -14,15 +14,21 @@
         </div>
         <div class="hf">
           <div>
-            <div class="gray"></div>
+            <div class="gray">
+              <img :src="yellowImgs" alt="">
+            </div>
             可选
           </div>
           <div>
-            <div class="yellow"></div>
+            <div class="yellow">
+              <img :src="proImgs" alt="">
+            </div>
             不可选
           </div>
           <div>
-            <div class="pro"></div>
+            <div class="pro">
+              <img :src="grayImgs" alt="">
+            </div>
             已选
           </div>
         </div>
@@ -33,47 +39,45 @@
           <div v-for="(items, index) in row" :key="index">{{ index + 1 }}</div>
         </div>
         <div class="cr">
-          <div
-            :class="item[1].flag ? 'select' : ''" class="list"
-            v-for="(item, index) in seatArr"
-            :key="item + index"
-          >
-            <!-- <div
-              v-for="seat in item"
-              :key="seat.index"
-              class="row"
-              @click="color($event, index + 1, seat)"
-            ></div> -->
-            <!-- {{item}} -->
+          <div class="inner-seat-wrapper" ref="innerSeatWrapper">
+            <div v-for="row in seatRow">
+              <!--这里的v-if很重要，如果没有则会导致报错，因为seatArray初始状态为空-->
+              <div
+                v-for="col in seatCol"
+                v-if="seatArray.length > 0"
+                class="seat"
+                :style="{ width: seatSize + 'px', height: seatSize + 'px' }"
+                :key="col"
+              >
+                <div
+                  class="inner-seat"
+                  @click="handleChooseSeat(row - 1, col - 1)"
+                  v-if="seatArray[row - 1][col - 1] !== -1"
+                  :class="
+                    seatArray[row - 1][col - 1] === 2
+                      ? 'bought-seat'
+                      : seatArray[row - 1][col - 1] === 1
+                      ? 'selected-seat'
+                      : 'unselected-seat'
+                  "
+                ></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="fo" v-if="!show">
+    <div class="fo">
       <div class="footer">
         <div class="ft">
           <span>推荐座位</span>
-          <div @click="choseSeat(1)">1人</div>
-          <div @click="choseSeat(2)">2人</div>
-          <div @click="choseSeat(3)">3人</div>
-          <div @click="choseSeat(4)">4人</div>
+          <div @click="smartChoose(1)">1人</div>
+          <div  @click="smartChoose(2)">2人</div>
+          <div  @click="smartChoose(3)">3人</div>
+          <div  @click="smartChoose(4)">4人</div>
         </div>
-        <div class="but">请先选座</div>
+        <div class="but" @click="jumpOrder">请先选座</div>
       </div>
-    </div>
-    <div class="display" v-else>
-      <div>已选座位</div>
-      <div class="banks">
-        <div
-          class="bank"
-          @click="remove(item)"
-          v-for="(item, index) in select"
-          :key="index"
-        >
-          {{ item.row }}排{{ item.li }}座
-        </div>
-      </div>
-      <div class="but" @click="goorder">¥{{ total }} 确认选座</div>
     </div>
   </div>
 </template>
@@ -90,194 +94,232 @@ export default {
       seat: "3号激光厅银幕",
       total: 33,
       row: [12, 12, 12, 12, 12, 12, 12, 12, 12],
-      select: [],
-      seatArr: [],
-      idx: 3,
+
+      //影院座位的二维数组,-1为非座位，0为未购座位，1为已选座位(绿色),2为已购座位(红色)
+				seatArray:[],
+        //影院座位行数
+        seatRow:9,
+        //影院座位列数
+        seatCol:12,
+        //座位尺寸
+        seatSize:'',
+        //推荐选座最大数量
+        smartChooseMaxNum:4,
+        grayImgs: require('@/assets/movie-imgs/icons/selected.png'),
+        yellowImgs: require('@/assets/movie-imgs/icons/unselected.png'),
+        proImgs: require('@/assets/movie-imgs/icons/bought.png'),
     };
   },
   watch: {
-    seatArr : {
-       deep:true, //深度监听设置为 true
-        handler:function(newV,oldV){
-           let newArr = newV.filter(el =>{
-              return  (el[0] === this.idx) 
-            })
-         var flag = newArr.every(el =>{
-             return (el[1].flag === true)
-          })
-          console.log(1)
-          if(flag && this.idx > 0){
-            this.idx--
-          }
-          
-     }
-    }
-
   },
   created() {
-    this.addSeat();
+    // this.addSeat();
   },
   computed: {
     show() {
-      return this.select.length;
+      // return this.select.length;
     },
     bought() {
       return this.$store.state.bought;
     }
   },
   mounted() {
-    function initdom() {
-      // var arr = document.querySelector(".cr").childNodes;
-      // for (var i = 0; i < arr.length; i++) {
-      //   //   console.log(arr);
-      //   var arr1 = arr[i].childNodes;
-      //   for (var j = 0; j < arr1.length; j++) {
-      //     if (i == 0) {
-      //       if (j == 1 || j == 5) {
-      //         arr1[j].style.marginRight = "15px";
-      //       } else {
-      //         arr1[j].style.marginRight = "5px";
-      //       }
-      //     } else if (i == 1) {
-      //       if (j == 2 || j == 6) {
-      //         arr1[j].style.marginRight = "15px";
-      //       } else {
-      //         arr1[j].style.marginRight = "5px";
-      //       }
-      //     } else {
-      //       if ((j + 1) % 4 == 0) {
-      //         arr1[j].style.marginRight = "15px";
-      //       } else {
-      //         arr1[j].style.marginRight = "5px";
-      //       }
-      //     }
-      //   }
-      //   if ((i + 1) % 3 == 0) {
-      //     arr[i].style.marginBottom = "15px";
-      //   } else {
-      //     arr[i].style.marginBottom = "5px";
-      //   }
-      //   arr[0].style.marginLeft = "-10px";
-      //   arr[1].style.marginLeft = "-10px";
-      // }
-    }
-    function ul() {
-      var ul = document.querySelector(".cl").childNodes;
-      for (let i = 0; i < ul.length; i++) {
-        if ((i + 1) % 3 == 0) {
-          ul[i].style.marginBottom = "15px";
-        } else {
-          ul[i].style.marginBottom = "5px";
-        }
-      }
-    }
-    ul();
-    initdom();
-    console.log(this.seatArr);
-    // 不能选
-    // this.bought.forEach(ele => {
-    //   var arr = document.querySelector(".cr").childNodes;
-    //   arr[ele.row - 1].childNodes[ele.li - 1].classList.add("bought");
-    //   arr[ele.row - 1].childNodes[ele.li - 1].style.pointerEvents = "none";
-    // });
+    this.initSeatArray();
+    this.initNonSeatPlace()
   },
   methods: {
-    choseSeat(val){
-
-          let arr = this.seatArr.filter(el=> {
-            // console.log((el[0] === 4))
-           return (el[0] === this.idx) && (el[1].flag === false)
-          })
-          for(let j = 0 ; j < val; j ++){
-            
-            
-            arr[j][1].flag = true
-            
-          }
-            console.log(arr)
+    //页面跳转
+    jumpOrder(){
+      this.$router.push('order')
     },
-    addSeat() {
-      for (let i = 0; i < this.row.length; i++) {
-        for (let j = 0; j < this.row[i]; j++) {
-          // debugger
-          if (
-            i === 0 ||
-            i === this.row.length - 1 ||
-            j === 0 ||
-            j === this.row[i] - 1
-          ) {
-            this.seatArr.push([0, { flag: false }]);
-            continue;
-          }
-          if (
-            i === 1 ||
-            i === this.row.length - 2 ||
-            j === 1 ||
-            j === this.row[i] - 2
-          ) {
-            this.seatArr.push([1, { flag: false }]);
-            continue;
-          }
-          if (
-            i === 2 ||
-            i === this.row.length - 3 ||
-            j === 2 ||
-            j === this.row[i] - 3
-          ) {
-            this.seatArr.push([2, { flag: false }]);
-            continue;
-          }
-          if (
-            i === 3 ||
-            i === this.row.length - 4 ||
-            j === 3 ||
-            j === this.row[i] - 4
-          ) {
-            this.seatArr.push([3, { flag: false }]);
-            continue;
-          }
 
-          this.seatArr.push([4, { flag: true }]);
+    //向前后某个方向进行搜索的函数,参数是起始行，终止行,推荐座位个数
+    searchSeatByDirection: function(fromRow, toRow, num) {
+      /*
+       * 推荐座位规则
+       * (1)初始状态从座位行数的一半处的后一排的中间开始向左右分别搜索，取离中间最近的，如果满足条件，
+       *    记录下该结果离座位中轴线的距离，后排搜索完成后取距离最小的那个结果作为最终结果，优先向后排进行搜索，
+       *    后排都没有才往前排搜，前排逻辑同上
+       * (2)只考虑并排且连续的座位，不能不在一排或者一排中间有分隔
+       * */
+
+      /*
+       * 保存当前方向搜索结果的数组,元素是对象,result是结果数组，offset代表与中轴线的偏移距离
+       * {
+       *   result:Array([x,y])
+       *   offset:Number
+       * }
+       */
+      let currentDirectionSearchResult = [];
+      //确定行数的大小关系，从小到大进行遍历
+      let largeRow = fromRow > toRow ? fromRow : toRow,
+        smallRow = fromRow > toRow ? toRow : fromRow;
+      //逐行搜索
+      for (let i = smallRow; i <= largeRow; i++) {
+        //每一排的搜索,找出该排里中轴线最近的一组座位
+        let tempRowResult = [],
+          minDistanceToMidLine = Infinity;
+        for (let j = 0; j <= this.seatCol - num; j++) {
+          //如果有合法位置
+          if (this.checkRowSeatContinusAndEmpty(i, j, j + num - 1)) {
+            //计算该组位置距离中轴线的距离:该组位置的中间位置到中轴线的距离
+            let resultMidPos = parseInt(j + num / 2, 10);
+            let distance = Math.abs(parseInt(this.seatCol / 2) - resultMidPos);
+            //如果距离较短则更新
+            if (distance < minDistanceToMidLine) {
+              minDistanceToMidLine = distance;
+              //该行的最终结果
+              tempRowResult = this.generateRowResult(i, j, j + num - 1);
+            }
+          }
         }
+        //保存该行的最终结果
+        currentDirectionSearchResult.push({
+          result: tempRowResult,
+          offset: minDistanceToMidLine
+        });
+      }
+
+      //处理后排的搜索结果:找到距离中轴线最短的一个
+      //注意这里的逻辑需要区分前后排，对于后排是从前往后，前排则是从后往前找
+      let isBackDir = fromRow < toRow;
+      let finalReuslt = [],
+        minDistanceToMid = Infinity;
+      if (isBackDir) {
+        //后排情况,从前往后
+        currentDirectionSearchResult.forEach(item => {
+          if (item.offset < minDistanceToMid) {
+            finalReuslt = item.result;
+            minDistanceToMid = item.offset;
+          }
+        });
+      } else {
+        //前排情况，从后往前找
+        currentDirectionSearchResult.reverse().forEach(item => {
+          if (item.offset < minDistanceToMid) {
+            finalReuslt = item.result;
+            minDistanceToMid = item.offset;
+          }
+        });
+      }
+      //直接返回结果
+      return finalReuslt;
+    },
+   /*辅助函数，判断每一行座位从i列到j列是否全部空余且连续
+       *
+       */
+      checkRowSeatContinusAndEmpty: function(rowNum,startPos,endPos){
+      	  let isValid = true;
+          for(let i=startPos;i<=endPos;i++){
+          	if(this.seatArray[rowNum][i]!==0){
+          		isValid=false;
+          		break;
+            }
+          }
+          return isValid
+      },
+      //辅助函数：返回每一行的某个合理位置的座位数组
+      generateRowResult: function(row,startPos,endPos){
+      	let result = [];
+      	for(let i=startPos;i<=endPos;i++){
+      		result.push([row,i])
+        }
+        return result
+      },
+      //辅助函数:智能推荐的选座操作
+      chooseSeat: function(result){
+        let oldArray = this.seatArray.slice();
+        for(let i=0;i<result.length;i++){
+        	//选定座位
+        	oldArray[result[i][0]][result[i][1]] = 1
+        }
+        this.seatArray = oldArray;
+      },
+    //推荐选座,参数是推荐座位数目
+    smartChoose: function(num) {
+      //找到影院座位水平垂直中间位置的后一排
+      let rowStart = parseInt((this.seatRow - 1) / 2, 10) + 1;
+      //先从中间排往后排搜索
+      let backResult = this.searchSeatByDirection(
+        rowStart,
+        this.seatRow - 1,
+        num
+      );
+      if (backResult.length > 0) {
+        this.chooseSeat(backResult);
+        return;
+      }
+      //再从中间排往前排搜索
+      let forwardResult = this.searchSeatByDirection(rowStart - 1, 0, num);
+      if (forwardResult.length > 0) {
+        this.chooseSeat(forwardResult);
+        return;
+      }
+      //提示用户无合法位置可选
+      alert("无合法位置可选!");
+    },
+    //初始座位数组
+    initSeatArray: function() {
+      let seatArray = Array(this.seatRow)
+        .fill(0)
+        .map(() => Array(this.seatCol).fill(0));
+      this.seatArray = seatArray;
+      //均分父容器宽度作为座位的宽度
+      console.log(this.$refs.innerSeatWrapper)
+      this.seatSize = this.$refs.innerSeatWrapper
+        ? parseInt(
+            parseInt(
+              window.getComputedStyle(this.$refs.innerSeatWrapper).width,
+              10
+            ) / this.seatCol,
+            10
+          )
+        : 0;
+      //初始化不是座位的地方
+      this.initNonSeatPlace();
+    },
+    //处理座位选择逻辑
+    handleChooseSeat: function(row, col) {
+      let seatValue = this.seatArray[row][col];
+      let newArray = this.seatArray;
+      //如果是已购座位，直接返回
+      if (seatValue === 2) return;
+      //如果是已选座位点击后变未选
+      if (seatValue === 1) {
+        newArray[row][col] = 0;
+      } else if (seatValue === 0) {
+        newArray[row][col] = 1;
+      }
+      //必须整体更新二维数组，Vue无法检测到数组某一项更新,必须slice复制一个数组才行
+      this.seatArray = newArray.slice();
+    },
+    //初始化不是座位的地方
+    initNonSeatPlace: function() {
+      for (let i = 0; i < 2; i++) {
+        this.seatArray[i][0] = -1;
+        
+      }
+      for (let i = 0; i < 1; i++) {
+        this.seatArray[i][1] = -1;
+        this.seatArray[i][this.seatArray[0].length - 2] =  -1;
+      }
+      for (let i = 0; i < 2; i++) {
+        this.seatArray[i][this.seatArray[0].length - 1] = -1 ;
+        
+      }
+      for (let i = 3; i < 6; i++) {
+        this.seatArray[i][this.seatArray[0].length - 6] =  2;
+        this.seatArray[i][this.seatArray[0].length - 7] =  2;
+        this.seatArray[i][this.seatArray[0].length - 5] =  2;
+      }
+      for (let i = 5; i < 8; i++) {
+        this.seatArray[5][i] = 2;
       }
     },
+
     go() {
-      console.log(1);
       this.$router.go(-1);
     },
-    goorder() {
-      this.$store.commit("boughtList", this.select);
-      this.$router.push({ path: "order" });
-    },
-    remove(val) {
-      var index = this.select.findIndex(ele => ele.id == val.id);
-      this.select.splice(index, 1);
-      var arr = document.querySelector(".cr").childNodes;
-      arr[val.row - 1].childNodes[val.li - 1].classList.remove("select");
-    },
-    color(e, row, li) {
-      var obj = {
-        id: row * 10 + li,
-        row: row,
-        li: li
-      };
-      var bol = this.select.find(ele => {
-        return obj.id == ele.id;
-      });
-      var arr = document.querySelector(".cr").childNodes;
-      if (bol) {
-        var index = this.select.findIndex(ele => ele.id == obj.id);
-        this.select.splice(index, 1);
-        arr[row - 1].childNodes[li - 1].classList.remove("select");
-      } else {
-        if (this.select.length < 4) {
-          this.select.push(obj);
-          arr[row - 1].childNodes[li - 1].classList.add("select");
-        } else {
-          alert("一次最多只能选4张票");
-        }
-      }
-    }
   }
 };
 </script>
@@ -374,15 +416,10 @@ export default {
           border-radius: 5px;
           background-color: #fff;
           margin-right: 5px;
-        }
-        .gray {
-          background-color: #4c2931;
-        }
-        .yellow {
-          background-color: #f9c34a;
-        }
-        .pro {
-          background-color: #6548a9;
+          img{
+            width: 100%;
+            height: 100%;
+          }
         }
       }
     }
@@ -397,9 +434,6 @@ export default {
       height: 20px;
       background-color: #33363d;
       line-height: 20px;
-      //   border-top: 20px solid #33363d;
-      //   border-left: 5px solid transparent;
-      //   border-right: 5px solid transparent;
     }
   }
   .fo {
@@ -500,8 +534,8 @@ export default {
       justify-content: center;
       div {
         width: 20px;
-        height: 20px;
-        line-height: 20px;
+        height: 28px;
+        line-height: 28px;
         text-align: center;
         // margin-bottom: 5px;
       }
@@ -515,19 +549,36 @@ export default {
       flex-wrap: wrap-reverse;
       // flex-direction: column-reverse;
       align-content: flex-start;
-      .list {
-        width: 20px;
-        height: 20px;
-        border-radius: 3px;
-        background: rgba(216, 216, 216, 1);
-        margin: 4px;
-        &.select {
-          background-color: #6548a9;
-        }
-        &.bought {
-          background-color: #f9c34a;
-        }
-      }
+      .inner-seat-wrapper{
+    // position: absolute;
+    // top:120px;
+    // bottom:0;
+    width:100%;
+    box-sizing: border-box;
+  }
+  .seat{
+    float:left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .inner-seat{
+    width:80%;
+    height:80%;
+    cursor: pointer;
+  }
+  .selected-seat{
+    background: url('../../assets/movie-imgs/icons/selected.png') center center no-repeat;
+    background-size: 100% 100%;
+  }
+  .unselected-seat{
+    background: url('../../assets/movie-imgs/icons/unselected.png') center center no-repeat;
+    background-size: 100% 100%;
+  }
+  .bought-seat{
+    background: url('../../assets/movie-imgs/icons/bought.png') center center no-repeat;
+    background-size: 100% 100%;
+  }
     }
   }
 }

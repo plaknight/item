@@ -64,7 +64,7 @@
               <p>2号厅(冠名招商中))</p>
             </div>
             <div class="maney">30.9元</div>
-            <div class="buy">购票</div>
+            <div class="buy" @click="jumpSeat">购票</div>
           </div>
         </div>
       </div>
@@ -115,6 +115,9 @@ export default {
     swiperSlide
   },
   methods: {
+    jumpSeat() {
+      this.$router.push("/seat");
+    },
     goBack() {
       this.$router.go(-1);
       window.localStorage.removeItem("cinemaObj");

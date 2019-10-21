@@ -159,6 +159,8 @@ export default {
   padding-left: 20px;
   width: 100%;
   height: auto;
+  margin-bottom: -50px;
+  box-sizing: border-box;
   .header {
     overflow: hidden;
     position: relative;
@@ -311,7 +313,22 @@ export default {
       color: #86888c;
       line-height: 14px;
       &.act {
+        position: relative;
         color: #fff;
+      }
+      &.act:after {
+        position: absolute;
+        left: -1px;
+        bottom: 10px;
+        content: "";
+        display: block;
+        width: 29px;
+        height: 3px;
+        background: linear-gradient(
+          135deg,
+          rgba(241, 100, 129, 1) 0%,
+          rgba(241, 144, 108, 1) 100%
+        );
       }
     }
   }
